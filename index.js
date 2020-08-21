@@ -27,14 +27,14 @@ app.get('/api', (req, res) =>{
      res.send('success')
 })
 
-app.post('/profile', async (req, res, next) => {
+app.post('/profile', cors(),async (req, res, next) => {
      try{
           const API = new huflit();
           console.log(req.body);
           var data = req.body;
           var profile = await API.login(data);
           // res.json(req.body);
-          res.send(profile)
+          res.json(profile)
           console.log('success')
      }catch(error){
           console.log(error);
