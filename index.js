@@ -2,7 +2,8 @@ var bodyParser = require('body-parser')
 const express = require('express')
 const huflit = require('./modules/Huflit')
 
-
+app.set('port', process.env.PORT || 5000);
+app.set('ip', process.env.IP || "0.0.0.0");
 
 const app =  express()
 const port = 3000
@@ -29,6 +30,6 @@ app.post('/profile', async (req, res, next) => {
      res.send(profile)
 })
 
-app.listen(port, () =>{
-     console.log(`server start in http://localhost:${port}`)
-})
+app.listen(app.get('port'), app.get('ip'), function() {
+     console.log("Chat bot server listening at %s:%d ", app.get('ip'), app.get('port'));
+});
