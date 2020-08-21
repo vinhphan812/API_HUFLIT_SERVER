@@ -30,6 +30,5 @@ app.post('/profile', async (req, res, next) => {
      res.send(profile)
 })
 
-app.listen(app.get('port'), app.get('ip'), function() {
-     console.log("Chat bot server listening at %s:%d ", app.get('ip'), app.get('port'));
-});
+app.listen(process.env.PORT || 3000, 
+	() => console.log("Server is running..."));
