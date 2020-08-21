@@ -1,12 +1,21 @@
 var bodyParser = require('body-parser')
 const express = require('express')
+const cors = require('cors')
 const huflit = require('./modules/Huflit')
 
 const app =  express()
 const port = 3000
 
+app.use(cors())
 app.use(express.json()) 
 app.use(express.urlencoded({ extended: true }))
+
+app.all('/', function(req, res, next) {
+     res.header("Access-Control-Allow-Origin", "*");
+     res.header("Access-Control-Allow-Headers", "X-Requested-With");
+     next()
+});
+
 
 app.get('/', (req, res) =>{
      console.log(req)
@@ -19,12 +28,18 @@ app.get('/api', (req, res) =>{
 })
 
 app.post('/profile', async (req, res, next) => {
-     const API = new huflit();
-     console.log(req.body);
-     var data = req.body;
-     var profile = await API.login(data);
-     // res.json(req.body);
-     res.send(profile)
+     try{
+          const API = new huflit();
+          console.log(req.body);
+          var data = req.body;
+          var profile = await API.login(data);
+          // res.json(req.body);
+          res.send(profile)
+          console.log('success')
+     }catch(error){
+          console.log(error);
+          res.send(error);
+     }
 })
 
 app.listen(process.env.PORT || 3000, 

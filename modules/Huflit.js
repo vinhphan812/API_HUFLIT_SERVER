@@ -10,19 +10,9 @@ class APIHuflit{
                resolveWithFullResponse: true,
                simple: false,
                headers: {
-                    // 'cache-control': 'max-age=0',
-                    // 'upgrade-insecure-requests': '1',
-                    // 'origin': 'https://portal.huflit.edu.vn',
-                    // 'content-type': 'application/x-www-form-urlencoded',
                     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/84.0.4147.125 Safari/537.36 Edg/84.0.522.59',
                     'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-                    // 'sec-fetch-site': 'same-origin',
-                    // 'sec-fetch-mode': 'navigate',
-                    // 'sec-fetch-user': '?1',
-                    // 'sec-fetch-dest': 'document',
-                    // 'referer': 'https://portal.huflit.edu.vn',
                     'accept-language': 'vi,en-US;q=0.9,en;q=0.8',
-                    // 'x-requested-with': 'XMLHttpRequest',
                }
           });
      }
@@ -51,7 +41,7 @@ class APIHuflit{
                     if(name.indexOf(user) >= 0)
                     {
                          console.log(name)
-                         resolve(this.jar);
+                         resolve([this.jar, name]);
                     }
                     reject('forgot user or pass')
                }
