@@ -4,12 +4,111 @@
           <style>
                :root{
                     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+                    font-weight: 400;
+               }
+               body{
+                    background-color: #e9ebee;
+               }
+               .content{
+                    background-color: #f6f8fa;
+                    width: 300px;
+                    height: auto;
+                    padding: 10px;
+                    margin-left: 30px;
+               }
+               code{
+                    display: block;
+               }
+               .data{
+                    color: #ff8013;
+               }
+               .action{
+                    color: #1000ff;
+               }
+               h3, h4{
+                    margin: 10px;
+                    border-bottom: 1px solid #eaecef;
+               }
+               h4{
+                    margin: 20px;
+               }
+               .main{
+                    padding: 10px 35px;
+                    margin: auto;
+                    width: 50%;
+                    height: auto;
+                    background-color: #FFF;
+               }
+               p{
+                    margin: 0;
+               }
+               .container{
+                    display: flex;
+                    align-items: center;
+               }
+               .lang svg{
+                    margin-left: 30px;
                }
           </style>
      </head>
      <body>
-          <h1>API HUFLIT</h1>
-          <p>To be able to use the API you need  "POST " dataForm <i>{user: user, pass: pass}</i> to path:  "/profile".</p>
-          <a href="https://github.com/vinhphan812/Huflit_portal">link repos API</a>
+          <div class="main">
+               <div class="container">
+                    <img src="https://huflit.edu.vn/files/news/2015_10/1437647860.nv.png" width="15%" height="15%" style="display:inline-block; margin: 10px">
+                    <h1>Api-Huflit</h1>
+               </div>
+               <!-- <p>To be able to use the API you need  "POST " dataForm <i>{user: user, pass: pass}</i> to path:  "/profile".</p> -->
+               <div>
+                    <h3>description</h3>
+                    <p style="margin-left:20px">API Huflit page portal</p>
+               </div>
+               <h3>Guide Api</h3>
+               <h4>Get Cookie Jar</h4>
+               <div class="content">
+                    <code style='font-weight: bold;'>path: "/profile"</code>
+                    <code>"<span class="action">POST</span>" data form as:</code>
+                    <code>{user: <span class="data">user</span>, pass: <span class="data">pass</span>}</code>
+                    <code>response:
+                    <p style="margin-left:15px">[</p>
+                         <p style="margin-left:30px">{"_jar": ...},</p>
+                         <p class="data" style="margin-left:30px">ResponseName</p>
+                    <p style="margin-left:15px">]</p>
+                    or
+                    <p style="margin-left:15px">"forgot user or pass"</p>
+                    </code>
+               </div>
+               <h4>Get Schedules</h4>
+               <div class="content">
+                    <code></code>
+               </div>
+               <div class="lang">
+                    <h2>language</h2>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 10" style="width: 200px; height: 10px; display: block;">
+                         <defs>
+                              <style>.cls-1{fill:#ead036;}</style>
+                         </defs>
+                         <title>Javascript</title>
+                         <g id="Layer_2" data-name="Layer 2">
+                              <g id="Layer_1-2" data-name="Layer 1">
+                                   <rect class="cls-1" width="200" height="10" rx="5"/>
+                              </g>
+                         </g>
+                    </svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10" style="width: 10px">
+                         <defs>
+                              <style>.cls-1{fill:#ead036;}</style>
+                         </defs>
+                         <title>Dot</title>
+                         <g id="Layer_2" data-name="Layer 2">
+                              <g id="Layer_1-2" data-name="Layer 1">
+                                   <circle class="cls-1" cx="5" cy="5" r="5"/>
+                              </g>
+                         </g>
+                    </svg>
+                    <span>Javascript</span>
+               </div>
+
+               <a href="https://github.com/vinhphan812/Huflit_portal">API</a>
+          </div>
      </body>
 </html>

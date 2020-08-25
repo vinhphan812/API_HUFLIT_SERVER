@@ -1,15 +1,15 @@
-var bodyParser = require('body-parser')
-const express = require('express')
-const cors = require('cors')
+var bodyParser = require('body-parser');
+const express = require('express');
+const cors = require('cors');
 const path = require('path');
-const huflit = require('./modules/Huflit')
+const huflit = require('./modules/Huflit');
 
-const app =  express()
-const port = 3000
+const app =  express();
+const port = 3000;
 
-app.use(cors())
-app.use(express.json()) 
-app.use(express.urlencoded({ extended: true }))
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.all('/', function(req, res, next) {
      res.header("Access-Control-Allow-Origin", "*");
@@ -37,6 +37,7 @@ app.post('/profile', cors(),async (req, res, next) => {
           console.log(req.body);
           var data = req.body;
           var profile = await API.login(data);
+          console.log(API.jar)
           // res.json(req.body);
           res.json(profile)
           console.log('success')
@@ -45,5 +46,21 @@ app.post('/profile', cors(),async (req, res, next) => {
           res.send(error);
      }
 })
+app.post('/Schedules', cors(), async (req, res, next) => {
+     try{
+          const API = new huflit();
+          var cookie = req.body.cookieJar;
+          cookie = JSON.parse(cookie)._jar.cookies[0];
+          API.jar.setCookie(cookie.key + "=" + cookie.value, 'portal.huflit.edu.vn')
+          console.log(API.jar)
+          var data = await API.getSchedules('HK01');
+          res.send(data);
 
-app.listen(process.env.PORT || 3000, () => console.log("Server is running..."));
+     }catch(error){
+          console.log(error)
+          res.send(error)
+     }
+})
+
+
+app.listen(process.env.PORT || port, () => console.log("Server is running..."));
