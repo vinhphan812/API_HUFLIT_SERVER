@@ -51,9 +51,10 @@ app.post('/Schedules', cors(), async (req, res, next) => {
           const API = new huflit();
           var cookie = req.body.cookieJar;
           cookie = JSON.parse(cookie)._jar.cookies[0];
-          API.jar.setCookie(cookie.key + "=" + cookie.value, 'portal.huflit.edu.vn')
+          API.jar.setCookie(cookie.key + "=" + cookie.value, 'https://portal.huflit.edu.vn')
           console.log(API.jar)
           var data = await API.getSchedules('HK01');
+          console.log(data)
           res.send(data);
 
      }catch(error){
