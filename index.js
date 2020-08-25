@@ -1,6 +1,7 @@
 var bodyParser = require('body-parser')
 const express = require('express')
 const cors = require('cors')
+const path = require('path');
 const huflit = require('./modules/Huflit')
 
 const app =  express()
@@ -18,13 +19,16 @@ app.all('/', function(req, res, next) {
 
 
 app.get('/', (req, res) =>{
-     console.log(req)
-     res.send('Hello World');
+     res.sendFile(path.join(__dirname + '/index.html'));
 })
 
 app.get('/api', (req, res) =>{
      console.log(req.query);
      res.send('success')
+})
+
+app.get('/profile', cors(), (req, res, next) =>{
+     res.send('Error: you can "POST" not "GET"')
 })
 
 app.post('/profile', cors(),async (req, res, next) => {
@@ -42,5 +46,4 @@ app.post('/profile', cors(),async (req, res, next) => {
      }
 })
 
-app.listen(process.env.PORT || 3000, 
-	() => console.log("Server is running..."));
+app.listen(process.env.PORT || 3000, () => console.log("Server is running..."));
