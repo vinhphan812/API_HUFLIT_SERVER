@@ -13,6 +13,7 @@
   "author": "Vinh Phan",
   "license": "ISC",
   "dependencies": {
+    "@mdi/font": "^5.5.55",
     "body-parser": "^1.19.0",
     "cheerio": "^1.0.0-rc.3",
     "cors": "^2.8.5",
