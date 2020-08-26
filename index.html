@@ -175,9 +175,9 @@
                </div>
                <h4>Get Schedules</h4>
                <div class="content">
-                    <code style='font-weight: bold;'>path: "<a href="/Schedules" class="url">/Schedules"</a></code>
+                    <code style='font-weight: bold;'>path: "<a href="/Schedules" class="url">/Schedules</a>"</code>
                     <code>"<span class="action">POST</span>" data form as:</code>
-                    <code>{CookieJar:<span class="data"> _jar</span>}</code>
+                    <code>{cookieJar:<span class="data"> _jar</span>}</code>
                     <code>response: 
                          <p style="margin-left:15px">{
                               <p style="margin-left:30px">
@@ -189,10 +189,28 @@
                                    TietHoc: <span class="data">Tiết Học</span>,<br>
                                    GiaoVien: <span class="data">Tên Giáo Viên</span><br>
                               </p>
-                         }</p>
+                         &nbsp;&nbsp;}</p>
                          or
                          []<br>
                          <span class="mdi mdi-alert-circle" style="color:#7d0303"> Errors can occur when the "POST" incorrectly cookies or expires!</span>
+                    </code>
+               </div>
+               <h4>Change Password</h4>
+               <div class="content">
+                    <code style='font-weight: bold;'>path: "<a href="/Schedules" class="url">/ChangePass</a>"</code>
+                    <code>"<span class="action">POST</span>" data form as:</code>
+                    <code>
+                         {<br>
+                              &nbsp;&nbsp;cookieJar:<span class="data"> _jar</span>,<br>
+                              &nbsp;&nbsp;oldPass:<span class="data"> oldPass</span>,<br>
+                              &nbsp;&nbsp;newPass:<span class="data"> newPass</span>
+                         <br>}
+                    </code>
+                    <code>response:
+                         <p>&nbsp;&nbsp;"Cập nhật mật khẩu thành công..."</p>
+                         <p>&nbsp;or</p>
+                         <p>&nbsp;&nbsp;"Mật khẩu cũ không chính xác"</p>
+                         <span class="mdi mdi-alert-circle" style="color:#7d0303; margin-top: 5px"> Errors can occur when the "POST" incorrectly cookies or expires!</span>
                     </code>
                </div>
                <div class="lang">

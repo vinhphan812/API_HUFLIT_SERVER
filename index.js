@@ -62,6 +62,17 @@ app.post('/Schedules', cors(), async (req, res, next) => {
           res.send(error)
      }
 })
-
+app.post('/ChangePass', cors(), async(req, res, next) => {
+     try {
+          const API = new huflit();
+          var cookie = JSON.parse(req.body.cookieJar)._jar.cookies[0];
+          API.jar.setCookie(cookie.key + "=" + cookie.value, 'https://portal.huflit.edu.vn')
+          var done = await API.ChangePass(req.body.oldPass, req.body.newPass);
+          res.send(done)
+     } catch (error) {
+          console.log(error);
+          res.send(error);
+     }
+})
 
 app.listen(process.env.PORT || port, () => console.log("Server is running..."));
