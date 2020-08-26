@@ -1,2 +1,3 @@
 # API_HUFLIT_SERVER
-# Run Web: node index
+# Run Web: node index.js
+
