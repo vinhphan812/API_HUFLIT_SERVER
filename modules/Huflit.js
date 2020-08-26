@@ -24,7 +24,6 @@ class APIHuflit{
                formData: data.formData,
                transform: (body) => cheerio.load(body)
           }
-          // console.log((typeof data.formData === 'object') ? 'post' : 'get')
           return request(form);
      }
      login({user, pass}){
@@ -70,7 +69,6 @@ class APIHuflit{
                                         data.push(subjects($(el).text().split('-'), room, ix + 1))
                               })
                     })
-                    // console.log(data);
                     resolve(data)
                } catch (error) {
                     reject(error);
