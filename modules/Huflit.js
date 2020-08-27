@@ -41,9 +41,9 @@ class APIHuflit{
                     if(name.indexOf(user) >= 0)
                     {
                          console.log(name)
-                         resolve({cookie: this.jar._jar.store.idx['portal.huflit.edu.vn']['/']['ASP.NET_SessionId'].toString(),name: name});
+                         resolve({isDone: true, cookie: this.jar._jar.store.idx['portal.huflit.edu.vn']['/']['ASP.NET_SessionId'].toString(),name: name});
                     }
-                    reject('forgot user or pass')
+                    reject({isDone: false, msg:'forgot user or pass'})
                }
                catch(err){
                     reject(err);
