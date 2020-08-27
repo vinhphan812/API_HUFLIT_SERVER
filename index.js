@@ -37,8 +37,6 @@ app.post('/profile', cors(),async (req, res, next) => {
           console.log(req.body);
           var data = req.body;
           var profile = await API.login(data);
-          console.log(API.jar)
-          // res.json(req.body);
           res.json(profile)
           console.log('success')
      }catch(error){
@@ -50,8 +48,7 @@ app.post('/Schedules', cors(), async (req, res, next) => {
      try{
           const API = new huflit();
           console.log(req.body)
-          var cookie = JSON.parse(req.body.cookieJar)._jar.cookies[0];
-          API.jar.setCookie(cookie.key + "=" + cookie.value, 'https://portal.huflit.edu.vn')
+          API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn')
           console.log(API.jar)
           var data = await API.getSchedules('HK01');
           console.log(data)
@@ -65,8 +62,7 @@ app.post('/Schedules', cors(), async (req, res, next) => {
 app.post('/ChangePass', cors(), async(req, res, next) => {
      try {
           const API = new huflit();
-          var cookie = JSON.parse(req.body.cookieJar)._jar.cookies[0];
-          API.jar.setCookie(cookie.key + "=" + cookie.value, 'https://portal.huflit.edu.vn')
+          API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn')
           var done = await API.ChangePass(req.body.oldPass, req.body.newPass);
           res.send(done)
      } catch (error) {
