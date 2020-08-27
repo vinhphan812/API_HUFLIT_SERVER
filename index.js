@@ -44,6 +44,19 @@ app.post('/profile', cors(),async (req, res, next) => {
           res.send(error);
      }
 })
+
+app.post('/CheckCookie', cors(), async (req, res, next) =>{
+     try {
+          const API = new huflit();
+          API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn')
+          var data = await API.CheckCookie()
+          res.send(data);
+     } catch (error) {
+          console.log(error)
+          res.send(error);
+     }
+})
+
 app.post('/Schedules', cors(), async (req, res, next) => {
      try{
           const API = new huflit();

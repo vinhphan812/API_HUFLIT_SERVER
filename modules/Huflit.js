@@ -101,6 +101,25 @@ class APIHuflit{
                } 
           })
      }
+     CheckCookie(){
+          return new Promise(async (resolve, reject) => {
+               try {
+                    var $ = await this.requestServer({
+                         URI: '/Home',
+                         isTransform: true
+                    });
+                    if($('title').text() == 'Đăng nhập')
+                         reject({isDone: false, msg: "GetCookie"})
+
+                    let name = $('a.stylecolor span').text()
+                    console.log(name);
+                    resolve({isDone: true, name: name});
+                    
+               } catch (error) {
+                    reject(error);
+               }
+          })
+     }
 }
 
 module.exports = APIHuflit;
