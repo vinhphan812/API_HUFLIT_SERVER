@@ -37,6 +37,8 @@ app.post('/profile', cors(),async (req, res, next) => {
           console.log(req.body);
           var data = req.body;
           var profile = await API.login(data);
+          console.log(profile);
+          
           res.json(profile)
           console.log('success')
      }catch(error){
