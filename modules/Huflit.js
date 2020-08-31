@@ -77,7 +77,7 @@ class APIHuflit{
           })
           function subjects(data, room, day){
                return {
-                    Thu: day == 8 ? 'CN' : day.toString(),
+                    Thu: day,
                     Phong: room,
                     MonHoc: data[1].split(':')[1].trim(),
                     MaLopHocPhan: data[2].split(':')[1],
