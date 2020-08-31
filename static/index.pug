@@ -1,0 +1,144 @@
+doctype html
+html
+   head
+     title Hello Pug
+     meta(charset="utf-8")
+     link(href="./index.css" rel="stylesheet" style="text/css")
+     link(href="//cdn.materialdesignicons.com/5.4.55/css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css")
+   body
+     div.main
+          h1 Api-Huflit
+          div
+               h3 Description
+               p.m50 API Huflit page portal. NodeJs modules: 
+                    a(target="_blank" href="https://github.com/request/request-promise") request-promise
+                    |, 
+                    a(target="_blank" href="https://github.com/expressjs/express") express
+                    |, 
+                    a(target="_blank" href="https://github.com/cheeriojs/cheerio") cheerio
+                    |, 
+                    a(target="_blank" href="https://github.com/expressjs/body-parser") body-parser
+                    |.
+          h3 Guide Api
+          h4.m50 Get Cookie (Login)
+          div.content
+               code.path path: "
+                    a.url(href="/profile") /profile
+                    |"
+               code "
+                    span.action POST
+                    |" data form as:
+               code.tab1 {user: 
+                    span.data MSSV
+                    |, pass:
+                    span.data password
+                    |}
+               code response:
+                    div.tab1 {
+                         p cookie:
+                              span.data cookie
+                              |,
+                         p name:
+                              span.data name
+                    p.tab1 }
+                         |or
+                    p.tab1 "forgot user or pass"
+                    span.mdi.mdi-alert-circle.alert  Errors could happen due to an error or incorrect user or pass
+          h4.m50 Get Schedules
+          div.content
+               code.path path: "
+                    a.url(href="/Schedules") /Schedules
+                    |"
+               code "
+                    span.action POST
+                    |" data form as:
+               code.tab1 { cookie
+                    span.data cookie
+                    |}
+               code response: array contain item
+                    div.tab1 {
+                         p
+                              |Thu: 
+                              span.data Thứ
+                              |,
+                              br
+                              |Phong: 
+                              span.data Phòng
+                              |,
+                              br
+                              |MonHoc: 
+                              span.data Tên Môn Học
+                              |,
+                              br
+                              |MaLopHocPhan: 
+                              span.data Mã Lớp Học Phần
+                              |,
+                              br
+                              |LopHoc: 
+                              span.data Lớp
+                              |,
+                              br
+                              |TietHoc: 
+                              span.data Tiết Học
+                              |,
+                              br
+                              |GiaoVien: 
+                              span.data Tên Giáo Viên
+                              |,
+                    p.tab1 }
+                    |or []
+                    br
+                    span.mdi.mdi-alert-circle.alert  Errors can occur when the "POST" incorrectly cookies or expires!
+          h4.m50 Change Password
+          div.content 
+               code.path path: "
+                    a.url(href="ChangePass") /ChangePass
+                    |"
+               code 
+                    p.tab1 {
+                    span.action POST
+                    |" data form as:
+               code {
+                    p.tab1 cookie: 
+                         span.data cookie
+                         |,
+                    p.tab1 oldPass: 
+                         span.data oldPass
+                         |,
+                    p.tab1 newPass: 
+                         span.data newPass
+                    |}
+               code response:
+                         p.tab1 "Cập nhật mật khẩu thành công..."
+                         |&nbsp;or
+                         p.tab1 "Mật khẩu cũ không chính xác"
+                         span.mdi.mdi-alert-circle.alert  Errors can occur when the "POST" incorrectly cookies or expires!
+          div.lang
+               h2 Languages
+               div.container
+                    svg.svg-1(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 10")
+                         defs
+                              style .cls-1{fill: #ead036}
+                         title JavaScript
+                         g(id="Layer_2" data-name="Layer_2")
+                              g(id="Layer_1" data-name="Layer_1")
+                                   rect.cls-1(width="200" height="10" rx="5")
+                    pre 100%
+               div.container
+                    svg.svg-2(xmlns="http://www.w3.org/2000/svg" viewBox="0 0 10 10")
+                         defs
+                              style .cls-2{fill: #ead036}
+                         title Dot
+                         g(id="Layer_2" data-name="Layer_2")
+                              g(id="Layer_1" data-name="Layer_1")
+                                   circle.cls-2(cx="5" cy="5" r="5")
+                    span JavaScript
+     ul.contact
+          li
+               a(href="https://github.com/vinhphan812")
+                    span.mdi.mdi-github 
+                    | GitHub
+          li
+               a(href="https://github.com/vinhphan812")
+                    span.mdi.mdi-github 
+                    | Facebook

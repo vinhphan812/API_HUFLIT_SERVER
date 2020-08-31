@@ -7,6 +7,9 @@ const huflit = require('./modules/Huflit');
 const app =  express();
 const port = 3000;
 
+app.set('view engine', 'pug');
+app.set('views', 'static');
+
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -17,10 +20,17 @@ app.all('/', function(req, res, next) {
      next()
 });
 
-
-app.get('/', (req, res) =>{
-     res.sendFile(path.join(__dirname + '/index.html'));
+app.get('/', cors(), function(req, res){
+     res.render('index');
 })
+
+app.get('/index.css', cors(), function(req, res, next){
+     res.sendFile(path.join(__dirname + '/static/index.css'));
+})
+
+// app.get('/', (req, res) =>{
+//      res.sendFile(path.join(__dirname + '/static/index.html'));
+// })
 
 app.get('/api', (req, res) =>{
      console.log(req.query);
