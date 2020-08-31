@@ -13,6 +13,7 @@ app.set('views', 'static');
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname, 'static')))
 
 app.all('/', function(req, res, next) {
      res.header("Access-Control-Allow-Origin", "*");
@@ -22,23 +23,6 @@ app.all('/', function(req, res, next) {
 
 app.get('/', cors(), function(req, res){
      res.render('index');
-})
-
-app.get('/index.css', cors(), function(req, res, next){
-     res.sendFile(path.join(__dirname + '/static/index.css'));
-})
-
-// app.get('/', (req, res) =>{
-//      res.sendFile(path.join(__dirname + '/static/index.html'));
-// })
-
-app.get('/api', (req, res) =>{
-     console.log(req.query);
-     res.send('success')
-})
-
-app.get('/profile', cors(), (req, res, next) =>{
-     res.send('Error: you can "POST" not "GET"')
 })
 
 app.post('/profile', cors(),async (req, res, next) => {
