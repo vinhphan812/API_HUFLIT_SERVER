@@ -79,7 +79,7 @@ class APIHuflit{
                return {
                     Thu: day,
                     Phong: room,
-                    MonHoc: data[1].split(':')[1].trim(),
+                    MonHoc: data[1].split(':')[1].split(' (')[0].trim(),
                     MaLopHocPhan: data[2].split(':')[1],
                     LopHoc: data[3].split(':')[1].trim(),
                     TietHoc: data[4].split(':')[1] + ' - ' + data[5],
