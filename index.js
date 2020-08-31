@@ -28,13 +28,10 @@ app.get('/', cors(), function(req, res){
 app.post('/profile', cors(),async (req, res, next) => {
      try{
           const API = new huflit();
-          console.log(req.body);
           var data = req.body;
           var profile = await API.login(data);
-          console.log(profile);
-          
           res.json(profile)
-          console.log('success')
+          console.log('success');
      }catch(error){
           console.log(error);
           res.send(error);
@@ -56,11 +53,8 @@ app.post('/CheckCookie', cors(), async (req, res, next) =>{
 app.post('/Schedules', cors(), async (req, res, next) => {
      try{
           const API = new huflit();
-          console.log(req.body)
           API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn')
-          console.log(API.jar)
           var data = await API.getSchedules('HK01');
-          console.log(data)
           res.send(data);
 
      }catch(error){
