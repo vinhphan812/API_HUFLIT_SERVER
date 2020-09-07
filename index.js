@@ -13,7 +13,7 @@ app.set('views', 'static');
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'static')))
+app.use(express.static(path.join(__dirname, 'static')));
 
 app.all('/', function(req, res, next) {
      res.header("Access-Control-Allow-Origin", "*");
@@ -28,7 +28,7 @@ app.get('/', cors(), function(req, res){
 app.post('/profile', cors(),async (req, res, next) => {
      try{
           const API = new huflit();
-          res.json(await API.login(req.body))
+          res.json(await API.login(req.body));
      }catch(error){
           res.send(error);          
      }
@@ -38,8 +38,7 @@ app.post('/CheckCookie', cors(), async (req, res, next) =>{
      try {
           const API = new huflit();
           API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn')
-          var data = await API.CheckCookie()
-          res.send(data);
+          res.send(await API.CheckCookie());
      } catch (error) {
           res.send(error);
      }
@@ -48,21 +47,20 @@ app.post('/CheckCookie', cors(), async (req, res, next) =>{
 app.post('/Schedules', cors(), async (req, res, next) => {
      try{
           const API = new huflit();
-          API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn')
+          API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn');
           var data = await API.getSchedules('HK01');
           res.send(data);
 
      }catch(error){
-          res.send(error)
+          res.send(error);
      }
 });
 
 app.post('/ChangePass', cors(), async(req, res, next) => {
      try {
           const API = new huflit();
-          API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn')
-          var done = await API.ChangePass(req.body.oldPass, req.body.newPass);
-          res.send(done)
+          API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn');
+          res.send(await API.ChangePass(req.body.oldPass, req.body.newPass));
      } catch (error) {
           res.send(error);
      }

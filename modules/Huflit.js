@@ -50,21 +50,18 @@ class APIHuflit{
                try {
                     var $ = await this.requestServer({
                          URI: 'Home/DrawingSchedules?YearStudy=2020-2021&TermID=' + semester + '&Week=37&t=0.5507445018467367',
-                    })
+                    });
                     var ls = $('tr'), data = [];
 
                     ls.each(function(i, e){
-                              // console.log($(this).text())
-                              var lsChild = $(this).children('td');
-                              var room = '';
+                              var lsChild = $(this).children('td'), room = '';
                               lsChild.each(function(ix, el){
                                    room = ix == 0 ? $(el).text() : room;
-                                   // console.log(room)
                                    if($(el).text() != '' && ix != 0)
-                                        data.push(subjects($(el).text().split('-'), room, ix + 1))
+                                        data.push(subjects($(el).text().split('-'), room, ix + 1));
                               })
                     })
-                    resolve(data)
+                    resolve(data);
                } catch (error) {
                     reject('server error');
                }
@@ -86,7 +83,7 @@ class APIHuflit{
                try {
                     var $ = await this.requestServer({
                          URI: '/API/Student/auther?t=0.6284478731933405&pw=' + oldPass + '&pw1=' + newPass + '&pw2=' + newPass,
-                    })
+                    });
                     if($.text() == 'Mật khẩu cũ không chính xác') reject($.text())
                     resolve($.text());
                } catch (error) {
