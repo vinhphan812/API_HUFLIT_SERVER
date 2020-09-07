@@ -28,13 +28,9 @@ app.get('/', cors(), function(req, res){
 app.post('/profile', cors(),async (req, res, next) => {
      try{
           const API = new huflit();
-          var data = req.body;
-          var profile = await API.login(data);
-          res.json(profile)
-          console.log('success');
+          res.json(await API.login(req.body))
      }catch(error){
-          console.log(error);
-          res.send(error);
+          res.send(error);          
      }
 });
 
@@ -45,7 +41,6 @@ app.post('/CheckCookie', cors(), async (req, res, next) =>{
           var data = await API.CheckCookie()
           res.send(data);
      } catch (error) {
-          console.log(error)
           res.send(error);
      }
 });
@@ -58,7 +53,6 @@ app.post('/Schedules', cors(), async (req, res, next) => {
           res.send(data);
 
      }catch(error){
-          console.log(error)
           res.send(error)
      }
 });
@@ -70,7 +64,6 @@ app.post('/ChangePass', cors(), async(req, res, next) => {
           var done = await API.ChangePass(req.body.oldPass, req.body.newPass);
           res.send(done)
      } catch (error) {
-          console.log(error);
           res.send(error);
      }
 });

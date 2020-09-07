@@ -16,14 +16,14 @@ class APIHuflit{
                }
           });
      }
-     requestServer(data = {URI, formData: '', isTransform: false}){
+     requestServer(data = {URI, formData: ''}){
           let form = {
                uri: API_SERVER + data.URI,
                jar: this.jar,
                method: (typeof data.formData === 'object') ? 'post' : 'get',
                formData: data.formData,
+               transform: (body) => cheerio.load(body)
           }
-          if(data.isTransform) form.transform = (body) => cheerio.load(body)
           return request(form);
      }
      login({user, pass}){
@@ -34,19 +34,14 @@ class APIHuflit{
                          formData: {
                               'txtTaiKhoan': user,
                               'txtMatKhau': pass
-                         },
-                         isTransform: true
+                         }
                     });
-                    let name = $('a.stylecolor span').text()
-                    if(name.indexOf(user) >= 0)
-                    {
-                         console.log(name)
-                         resolve({isDone: true, cookie: this.jar._jar.store.idx['portal.huflit.edu.vn']['/']['ASP.NET_SessionId'].toString(),name: name});
-                    }
-                    reject({isDone: false, msg:'forgot user or pass'})
+                    if($('a.stylecolor span').text().indexOf(user) >= 0)
+                         resolve({isDone: true, cookie: this.jar._jar.store.idx['portal.huflit.edu.vn']['/']['ASP.NET_SessionId'].toString(), name: $('a.stylecolor span').text()});
+                    reject({isDone: false, msg:'forgot user or pass'});
                }
                catch(err){
-                    reject(err);
+                    reject('server error');
                }
           })
      }
@@ -55,7 +50,6 @@ class APIHuflit{
                try {
                     var $ = await this.requestServer({
                          URI: 'Home/DrawingSchedules?YearStudy=2020-2021&TermID=' + semester + '&Week=37&t=0.5507445018467367',
-                         isTransform: true
                     })
                     var ls = $('tr'), data = [];
 
@@ -72,7 +66,7 @@ class APIHuflit{
                     })
                     resolve(data)
                } catch (error) {
-                    reject(error);
+                    reject('server error');
                }
           })
           function subjects(data, room, day){
@@ -92,12 +86,11 @@ class APIHuflit{
                try {
                     var $ = await this.requestServer({
                          URI: '/API/Student/auther?t=0.6284478731933405&pw=' + oldPass + '&pw1=' + newPass + '&pw2=' + newPass,
-                         isTransform: true
                     })
                     if($.text() == 'Mật khẩu cũ không chính xác') reject($.text())
                     resolve($.text());
                } catch (error) {
-                    reject(error);
+                    reject('server error');
                } 
           })
      }
@@ -106,17 +99,11 @@ class APIHuflit{
                try {
                     var $ = await this.requestServer({
                          URI: '/Home',
-                         isTransform: true
                     });
-                    if($('title').text() == 'Đăng nhập')
-                         reject({isDone: false, msg: "GetCookie"})
-
-                    let name = $('a.stylecolor span').text()
-                    console.log(name);
-                    resolve({isDone: true, name: name});
+                    return $('a.stylecolor span').text() ? resolve({isDone: true, name: $('a.stylecolor span').text()}) : reject({isDone: false, msg: "GetCookie"});
                     
                } catch (error) {
-                    reject(error);
+                    reject('server error');
                }
           })
      }
