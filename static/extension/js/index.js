@@ -83,7 +83,7 @@ function stopLoading(){
 
 // make request server API 
 function xhrRequest(uri, data){    
-     // xhr.open("POST", "https://api-huflit.herokuapp.com/" + uri);     
+     xhr.open("POST", "https://api-huflit.herokuapp.com/" + uri);     
 
      xhr.setRequestHeader("Access-Control-Allow-Origin", "*");
      xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
