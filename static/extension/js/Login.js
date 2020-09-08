@@ -1,5 +1,4 @@
 const DOM = document.getElementById('DOM'); // div DOM data 
-const logo = document.getElementById('logo'); // transition logo
 const Menu = document.getElementById('menu'); // Menu user after Login
 const main = document.getElementById('main'); // div all element
 const inpUser = document.getElementById('user'); // input user

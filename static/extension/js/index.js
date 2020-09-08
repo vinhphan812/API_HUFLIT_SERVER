@@ -77,8 +77,6 @@ function stopLoading(){
      document.getElementById('loader').remove();
      DOM.style.opacity = 1;
      DOM.style.transform = 'translateY(0px)';
-     logo.style.opacity = 1;
-     logo.style.transform = 'translateY(0px)';
 }
 
 // make request server API 
