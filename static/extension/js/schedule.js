@@ -36,7 +36,7 @@ function renderSchedule(schedule){
                     dataDay = dataDay.sort(function(a, b){
                          return parseInt(a.TietHoc.split(' - ')[0].trim()) - parseInt(b.TietHoc.split(' - ')[0].trim());
                     })
-               dataDay = dataDay.map(function(item){return '<div class="subject flex"><div class="tiet textCenter"><span>' + periodBoard[item.TietHoc.split(' - ')[0].trim().start] + "</span><span>" + periodBoard[item.TietHoc.split(' - ')[0].trim().end] + "</span></div><div class='info flex'><span class='mon'>" + item.MonHoc + '</span><span class="giaovien">' + item.GiaoVien + '</span></div><span class="phong textCenter">' + item.Phong  + '</></div>'});
+               dataDay = dataDay.map(function(item){return '<div class="subject flex"><div class="tiet textCenter"><span>' + periodBoard[item.TietHoc.split(' - ')[0].trim()].start + "</span><span>" + periodBoard[item.TietHoc.split(' - ')[0].trim()].end + "</span></div><div class='info flex'><span class='mon'>" + item.MonHoc + '</span><span class="giaovien">' + item.GiaoVien + '</span></div><span class="phong textCenter">' + item.Phong  + '</></div>'});
           }         
           document.getElementById('t' + i).className = today == i ? 'on flex' : 'off';
           document.getElementById('t'+ i).innerHTML = typeof dataDay == 'object' ? dataDay.join('') : dataDay;
