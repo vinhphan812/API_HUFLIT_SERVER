@@ -77,7 +77,8 @@ function stopLoading(){
      document.getElementById('loader').remove();
      DOM.style.opacity = 1;
      DOM.style.transform = 'translateY(0px)';
-     document.getElementById('title').style.transform = 'translateY(-30px)';
+     document.getElementById('title').style.transform = 'translateY(-50px)';
+     document.getElementById('title').style.fontSize = 'translateY(-30px)';
      setTimeout(function() {  
           document.getElementById('title').remove();
      }, 450);
