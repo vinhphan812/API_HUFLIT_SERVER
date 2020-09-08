@@ -36,9 +36,11 @@ function isDone(data){
      //transition css
      setTimeout(function(){
           Menu.style.opacity = 1;
-          DOM.style.height = '293px';
+          DOM.style.height = '410px';
           DOM.style.opacity = 0;
      }, 450);
+
+     Schedules();
 }
 
 // save cookie, user, pass to storage local
