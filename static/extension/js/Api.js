@@ -62,7 +62,7 @@ function Change(){
                     var data = 'cookie=' + res.cookie + '&oldPass=' + res.pass + '&newPass=' + pw1.value;
                     xhr.addEventListener('readystatechange', function (event){
                          if(this.readyState === 4 && this.responseURL.indexOf('ChangePass') >= 0){
-                              DOM.innerHTML = '<div style="display: flex;flex-direction: column;justify-content: center;color: #1e7900;align-items: center;height: 100%;font-weight: bold;"><img src="./assets/img/tick.png" style="margin: 10px;"><p>' + this.responseText + '</p></div>';
+                              DOM.innerHTML = '<div style="display: flex;flex-direction: column;justify-content: center;color: #1e7900;align-items: center;height: 100%;font-weight: bold;"><img src="https://api-huflit.herokuapp.com/extension/img/tick.png" style="margin: 10px;"><p>' + this.responseText + '</p></div>';
                          }        
                     });
                     xhrRequest('ChangePass', data);
