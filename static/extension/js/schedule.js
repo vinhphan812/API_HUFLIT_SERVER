@@ -1,5 +1,19 @@
 const periodBoard = {
-     1: '6h45', 2: '7h35', 3: '8h25', 4: '9h30', 5: '10h20', 6: '11h10', 7: '12h45', 8: '13h35', 9: '14h25', 10: '15h30', 11: '16h20', 12: '17h10', 13: '18h15', 14: '19h05', 15: '19h55',
+     1: {start: '6h45', end: '7h35'}, 
+     2: {start: '7h35', end: '8h25'},
+     3: {start: '8h25', end: '9h15'},
+     4: {start: '9h30', end: '10h20'}, 
+     5: {start: '10h20', end: '11h10'}, 
+     6: {start: '11h10', end: '12h00'}, 
+     7: {start: '12h45', end: '13h35'}, 
+     8: {start: '13h35', end: '14h25'}, 
+     9: {start: '14h25', end: '15h15'}, 
+     10: {start: '15h30', end: '16h20'}, 
+     11: {start: '16h20', end: '17h10'},
+     12: {start: '17h10', end: '18h15'}, 
+     13: {start: '18h15', end: '19h05'}, 
+     14: {start: '19h05', end: '19h55'}, 
+     15: {start: '19h55', end: '20h45'},
 }
 
 function renderSchedule(schedule){
@@ -22,7 +36,7 @@ function renderSchedule(schedule){
                     dataDay = dataDay.sort(function(a, b){
                          return parseInt(a.TietHoc.split(' - ')[0].trim()) - parseInt(b.TietHoc.split(' - ')[0].trim());
                     })
-               dataDay = dataDay.map(function(item){return '<div class="subject flex"><div class="tiet textCenter">' + periodBoard[item.TietHoc.split(' - ')[0].trim()] + "</div><div class='info flex'><span class='mon'>" + item.MonHoc + '</span><span class="giaovien">' + item.GiaoVien + '</span></div><span class="phong textCenter">' + item.Phong  + '</></div>'});
+               dataDay = dataDay.map(function(item){return '<div class="subject flex"><div class="tiet textCenter"><span>' + periodBoard[item.TietHoc.split(' - ')[0].trim().start] + "</span><span>" + periodBoard[item.TietHoc.split(' - ')[0].trim().end] + "</span></div><div class='info flex'><span class='mon'>" + item.MonHoc + '</span><span class="giaovien">' + item.GiaoVien + '</span></div><span class="phong textCenter">' + item.Phong  + '</></div>'});
           }         
           document.getElementById('t' + i).className = today == i ? 'on flex' : 'off';
           document.getElementById('t'+ i).innerHTML = typeof dataDay == 'object' ? dataDay.join('') : dataDay;
