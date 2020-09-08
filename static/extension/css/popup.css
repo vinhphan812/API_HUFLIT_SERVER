@@ -40,6 +40,7 @@ body{
      font-weight: bold;     
      border-bottom: 1px solid #ccc;
      color: #373F51;
+     transition: transform linear 400ms;
 }
 
 #loader img{
@@ -140,15 +141,6 @@ layer{
      transform: translateY(30px);
      opacity: 0;
      transition: transform linear 450ms, opacity linear 600ms;
-}
-.logo{
-     display: block;
-     width: 70px;
-     height: 70px;
-     margin: 5px auto 0 auto;
-     transition: transform linear 400ms;
-     transform: translateY(-30px);
-     opacity: 0;
 }
 #msg{
      height: 20px;

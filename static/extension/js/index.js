@@ -77,6 +77,7 @@ function stopLoading(){
      document.getElementById('loader').remove();
      DOM.style.opacity = 1;
      DOM.style.transform = 'translateY(0px)';
+     document.getElementById('title').transform = 'translateY(-30px)';
 }
 
 // make request server API 
