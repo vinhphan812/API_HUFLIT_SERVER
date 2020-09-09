@@ -3,9 +3,12 @@ var dataMenu = [['Schedules','Schedules'], ['ChangePassword','Change Password'],
 
 // if done --> DOM data 
 function isDone(data){
+     document.getElementById('box-title').className = 'flex row';
+
      var liMenu = dataMenu.map(function(item){
           return '<li class="itemMenu" id="' + item[0] + '"><img class="icon" src="https://api-huflit.herokuapp.com/extension/img/' + item[0] + '.png"><span>' + item[1] + '</span></li>'
      })
+     
      if(document.getElementById('loader'))
           stopLoading();
           
@@ -79,7 +82,6 @@ function stopLoading(){
      document.getElementById('loader').remove();
      DOM.style.opacity = 1;
      DOM.style.transform = 'translateY(0px)';
-     document.getElementById('box-title').className = 'flex row';
 }
 
 // make request server API 
