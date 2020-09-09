@@ -64,7 +64,7 @@
      transform: translateX(5px);
  }
 
-.subject:hover info {
+.subject:hover .info{
      transform: translateX(2px);
 }
 
