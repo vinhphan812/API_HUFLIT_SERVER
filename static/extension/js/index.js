@@ -4,7 +4,6 @@ var dataMenu = [['Schedules','Schedules'], ['ChangePassword','Change Password'],
 // if done --> DOM data 
 function isDone(data){
      document.getElementById('box-title').className = 'flex row';
-     document.getElementById('box-title').style.flexDirection = 'row';
 
      var liMenu = dataMenu.map(function(item){
           return '<li class="itemMenu" id="' + item[0] + '"><img class="icon" src="https://api-huflit.herokuapp.com/extension/img/' + item[0] + '.png"><span>' + item[1] + '</span></li>'
