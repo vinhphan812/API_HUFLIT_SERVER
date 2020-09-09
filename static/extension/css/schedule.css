@@ -58,6 +58,16 @@
      margin: 0 10px 0 10px;
      border-bottom: 1px solid #d3d3d3;
 }      
+
+.subject:hover {
+     background-color: #239088;
+     transform: translateX(5px);
+ }
+
+.subject:hover info {
+     transform: translateX(2px);
+}
+
 .tiet{
      display: flex;
      flex-direction: column;
