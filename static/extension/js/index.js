@@ -20,10 +20,6 @@ function isDone(data){
                Login();
      });
 
-     document.getElementById('login').removeEventListener('click', function(event){
-          Login();
-     });
-
      xhr.removeEventListener('readystatechange', resCookie);
      xhr.removeEventListener('readystatechange', DOMLogin);
      
