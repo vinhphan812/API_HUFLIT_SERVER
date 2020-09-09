@@ -204,6 +204,7 @@ layer{
 }
 
 .row{
+     flex-direction: column;
      height: 75px;
 }
 
