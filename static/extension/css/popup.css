@@ -124,10 +124,10 @@ button{
      width: 100px;
      height: 30px;
      margin: 10px auto 0 auto;
-     background-color: #e00022;
+     background-color: #23b9b9;
+     cursor: pointer;
      color: #fff;
      border: 0;
-     box-shadow: 0 0 5px 0 #8a1225;
 }
 .form{
      align-items: center;
