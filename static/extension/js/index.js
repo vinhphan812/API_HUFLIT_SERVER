@@ -3,7 +3,7 @@ var dataMenu = [['Schedules','Schedules'], ['ChangePassword','Change Password'],
 
 // if done --> DOM data 
 function isDone(data){
-     // document.getElementById('box-title').className = 'flex row';
+     document.getElementById('box-title').className = 'flex row';
      document.getElementById('box-title').style.flexDirection = 'row';
 
      var liMenu = dataMenu.map(function(item){
@@ -55,10 +55,11 @@ function DOMLogin(event){
           var res = JSON.parse(this.responseText);
 
           if(res.isDone){ 
-               isDone(res.name); // DOM user and menu
+               // DOM user and menu
                // save data user, pass, cookie 
                chrome.storage.local.set({cookie: res.cookie, user: LoginUser, pass: LoginPass}, function(){
                     console.log('save success');
+                    isDone(res.name);
                });
           }
           else{

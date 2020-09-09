@@ -21,6 +21,7 @@ body{
 .logo{
      width: 216px;
      height: 145px;
+     transition: all linear 400ms;
 }
 
 #loader{
@@ -45,7 +46,7 @@ body{
      font-weight: bold;     
      border-bottom: 1px solid #ccc;
      color: #373F51;
-     transition: font-size linear 400ms;
+     transition: all linear 400ms;
 }
 
 #loader img{
@@ -199,19 +200,21 @@ layer{
 
 .column{
      flex-direction: column;
-}
-.row{
-     flex-direction: row;
      align-items: center;
+}
+
+.row{
+     height: 75px;
 }
 
 .row img{
      width: 108px;
-     height: 72.5px;
-     margin-right: 10px;
+     height: 72.5px;     
+     transform: translateX(-140px);
 }
 
 .row div{
      font-size: 25px;
      border: 0;
+     transform: translate(55px, -55px);
 }
