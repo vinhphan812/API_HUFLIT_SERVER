@@ -11,6 +11,7 @@ body{
 
 .flex{
      display: flex;
+     transition: all linear 400ms;
 }
 
 .textCenter{
@@ -195,4 +196,16 @@ layer{
 
 .errorText{
      color: #e00022;
+}
+
+.column{
+     flex-direction: column;
+}
+.row{
+     flex-direction: column;
+}
+
+.row img{
+     width: 108;
+     height: 72.5;
 }

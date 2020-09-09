@@ -79,11 +79,7 @@ function stopLoading(){
      document.getElementById('loader').remove();
      DOM.style.opacity = 1;
      DOM.style.transform = 'translateY(0px)';
-     document.getElementById('title').style.transform = 'translateY(-50px)';
-     document.getElementById('title').style.fontSize = '30px';
-     setTimeout(function() {  
-          document.getElementById('title').remove();
-     }, 450);
+     document.getElementById('box-title').className = 'flex row';
 }
 
 // make request server API 
