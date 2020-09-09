@@ -17,6 +17,11 @@ body{
      text-align: center;
 }
 
+.logo{
+     width: 216px;
+     height: 145px;
+}
+
 #loader{
      align-items: center;
      justify-content: center;
