@@ -39,7 +39,7 @@ body{
      0%{transform: rotate(0deg);}
      100%{transform: rotate(360deg);}
 }
-#title{
+.title{
      margin: 0 36px;
      font-size: 40px;
      text-align: center;
