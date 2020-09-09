@@ -40,7 +40,7 @@ function isDone(data){
           DOM.style.opacity = 0;
      }, 450);
 
-     Schedules();
+     Schedule();
 }
 
 // save cookie, user, pass to storage local
