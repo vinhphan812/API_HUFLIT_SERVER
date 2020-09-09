@@ -207,6 +207,7 @@ layer{
      flex-direction: column;
      height: 75px;
      align-items: center;
+     margin: 5px;
 }
 
 .row img{
