@@ -20,7 +20,7 @@ function isDone(data){
                Login();
      });
 
-     login.removeEventListener('click', function(event){
+     document.getElementById('login').removeEventListener('click', function(event){
           Login();
      });
 
@@ -73,7 +73,7 @@ function DOMLogin(event){
 function isDisabled(flag){
      inpUser.disabled = flag;
      inpPass.disabled = flag;
-     login.disabled = flag;          
+     document.getElementById('login').disabled = flag;          
 }
 
 // stop action loading 
