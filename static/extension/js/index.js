@@ -40,7 +40,7 @@ function isDone(data){
      //transition css
      setTimeout(function(){
           Menu.style.opacity = 1;
-          DOM.style.height = '410px';
+          DOM.style.height = '330px';
           DOM.style.opacity = 0;
      }, 450);
 
