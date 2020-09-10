@@ -1,4 +1,4 @@
-var dataMenu = [['Schedules','Schedules'], ['ChangePassword','Change Password'], ['Logout','Logout']];
+var dataMenu = [['Schedules','Schedules'], ['Password','Password'], ['TestCore', 'Test Score'], ['Logout','Logout']];
 
 
 // if done --> DOM data 
@@ -28,7 +28,8 @@ function isDone(data){
      Menu.innerHTML = '<div class="user flex"><img src="https://api-huflit.herokuapp.com/extension/img/user.png"><p>' + data + '</p></div><ul class="menu flex">' + liMenu.join('') + '</ul>';
      //DOM menu list
      document.getElementById('Schedules').addEventListener('click', Schedule);
-     document.getElementById('ChangePassword').addEventListener('click', ChangePassword);
+     document.getElementById('Password').addEventListener('click', ChangePassword);
+     document.getElementById('TestScore').addEventListener('click', testScore);
      document.getElementById('Logout').addEventListener('click', Logout);
      DOM.innerHTML = '';
 

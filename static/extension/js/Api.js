@@ -69,6 +69,11 @@ function Change(){
                }
           })
 }
+
+function testScore(){
+
+}
+
 // remove username, password, cookie in storage local
 function Logout(){
      chrome.storage.local.remove(['user', 'pass', 'cookie'], function(){
@@ -76,4 +81,3 @@ function Logout(){
      })
      window.location.href = 'popup.html'
 }
-
