@@ -15,7 +15,7 @@ function Schedule(){
                }
                else{
                     DOM.style.opacity = 1;
-                    DOM.innerHTML = '<div>ERROR:: Cookie null</div>';
+                    DOM.innerHTML = '<div class="errorText">ERROR:: Cookie null</div>';
                }
           })
 }
