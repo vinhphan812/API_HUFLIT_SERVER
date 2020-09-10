@@ -1,4 +1,4 @@
-var dataMenu = [['Schedules','Schedules'], ['Password','Password'], ['TestCore', 'Test Score'], ['Logout','Logout']];
+var dataMenu = [['Schedules','Schedules'], ['Password','Password'], ['Logout','Logout']];
 
 
 // if done --> DOM data 
@@ -29,7 +29,6 @@ function isDone(data){
      //DOM menu list
      document.getElementById('Schedules').addEventListener('click', Schedule);
      document.getElementById('Password').addEventListener('click', ChangePassword);
-     document.getElementById('TestScore').addEventListener('click', testScore);
      document.getElementById('Logout').addEventListener('click', Logout);
      DOM.innerHTML = '';
 
