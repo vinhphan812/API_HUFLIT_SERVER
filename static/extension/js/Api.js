@@ -12,7 +12,7 @@ function Schedule(){
                     var data = 'cookie=' + res.cookie;
                     xhr.addEventListener('readystatechange', function(event){
                          if(this.readyState == 4 && this.responseURL.indexOf('Schedules') >= 0)
-                              renderSchedule(JSON.parse(this.responseText));
+                              renderSchedule(schedules = JSON.parse(this.responseText));
                     })
                     xhrRequest('Schedules', data);
                }
