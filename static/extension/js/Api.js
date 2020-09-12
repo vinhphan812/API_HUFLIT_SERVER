@@ -53,27 +53,19 @@ function ChangePassword(){
 //get cookie and password old --> check new pass != old pass --> request API changePass
 function Change(){
      msg.innerText = '';
-          chrome.storage.local.get(['cookie', 'pass'], function(res){
-               if(pw1.value == '' || pw1.value == res.pass)
-                    msg.innerText = 'bạn chưa nhập mật khẩu mới...';
-               else
-               {
-                    chrome.storage.local.set({pass: pw1.value});
-                    var data = 'cookie=' + res.cookie + '&oldPass=' + res.pass + '&newPass=' + pw1.value;
-                    xhr.addEventListener('readystatechange', function (event){
-                         if(this.readyState === 4 && this.responseURL.indexOf('ChangePass') >= 0){
-                              DOM.innerHTML = '<div style="display: flex;flex-direction: column;justify-content: center;color: #1e7900;align-items: center;height: 100%;font-weight: bold;"><img src="https://api-huflit.herokuapp.com/extension/img/tick.png" style="margin: 10px;"><p>' + this.responseText + '</p></div>';
-                         }        
-                    });
-                    xhrRequest('ChangePass', data);
-               }
-          })
-}
-
-// remove username, password, cookie in storage local
-function Logout(){
-     chrome.storage.local.remove(['user', 'pass', 'cookie'], function(){
-          console.log('success');
+     chrome.storage.local.get(['cookie', 'pass'], function(res){
+          if(pw1.value == '' || pw1.value == res.pass)
+               msg.innerText = 'bạn chưa nhập mật khẩu mới...';
+          else
+          {
+               chrome.storage.local.set({pass: pw1.value});
+               var data = 'cookie=' + res.cookie + '&oldPass=' + res.pass + '&newPass=' + pw1.value;
+               xhr.addEventListener('readystatechange', function (event){
+                    if(this.readyState === 4 && this.responseURL.indexOf('ChangePass') >= 0){
+                         DOM.innerHTML = '<div style="display: flex;flex-direction: column;justify-content: center;color: #1e7900;align-items: center;height: 100%;font-weight: bold;"><img src="' + host + 'extension/img/tick.png" style="margin: 10px;"><p>' + this.responseText + '</p></div>';
+                    }        
+               });
+               xhrRequest('ChangePass', data);
+          }
      })
-     window.location.href = 'popup.html'
 }
