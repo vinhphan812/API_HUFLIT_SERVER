@@ -201,6 +201,16 @@ layer{
      line-height: 330px;
 }
 
+.successText{
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     color: #1e7900;
+     align-items: center;
+     height: 100%;
+     font-weight: bold;
+}
+
 .column{
      flex-direction: column;
      align-items: center;
