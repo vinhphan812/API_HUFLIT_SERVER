@@ -1,15 +1,18 @@
+var schedules = [];
+
 // function API: getSchedule, ChangePassword, Logout.
 /// + Schedule
 //// get cookie from storage local --> renderSchedule(response)
 function Schedule(){
-          DOM.style.opacity = 0;
+     DOM.style.opacity = 0;
+     if(schedules.length == 0)
           chrome.storage.local.get(['cookie'], function(res){
                if(res.cookie)
                {
                     var data = 'cookie=' + res.cookie;
                     xhr.addEventListener('readystatechange', function(event){
-                              if(this.readyState == 4 && this.responseURL.indexOf('Schedules') >= 0)
-                                   renderSchedule(JSON.parse(this.responseText));
+                         if(this.readyState == 4 && this.responseURL.indexOf('Schedules') >= 0)
+                              renderSchedule(JSON.parse(this.responseText));
                     })
                     xhrRequest('Schedules', data);
                }
@@ -18,6 +21,8 @@ function Schedule(){
                     DOM.innerHTML = '<div class="errorText">ERROR:: Cookie null</div>';
                }
           })
+     else
+          renderSchedule(schedules);
 }
 /// + ChangePassword
 //// DOM form enter new password --> transition css, add event checkbox check text <-> pass 
