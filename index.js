@@ -66,4 +66,8 @@ app.post('/ChangePass', cors(), async(req, res, next) => {
      }
 });
 
+app.get('/openServer', cors(), function(req, res){
+     res.send(true);
+})
+
 app.listen(process.env.PORT || port, () => console.log("Server is running..."));
