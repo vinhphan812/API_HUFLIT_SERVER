@@ -48,20 +48,15 @@ class APIHuflit{
      getSchedules(semester){
           return new Promise(async (resolve, reject) =>{
                try {
+                    var Schedules = [];
                     var $ = await this.requestServer({
-                         URI: 'Home/DrawingSchedules?YearStudy=2020-2021&TermID=' + semester + '&Week=37&t=0.5507445018467367',
+                         URI: 'Home/DrawingSchedules?YearStudy=2020-2021&TermID=' + semester + '&Week=41&t=0.5507445018467367',
+                         formData: '', 
                     });
-                    var ls = $('tr'), data = [];
-
-                    ls.each(function(i, e){
-                              var lsChild = $(this).children('td'), room = '';
-                              lsChild.each(function(ix, el){
-                                   room = ix == 0 ? $(el).text() : room;
-                                   if($(el).text() != '' && ix != 0)
-                                        data.push(subjects($(el).text().split('-'), room, ix + 1));
-                              })
-                    })
-                    resolve(data);
+                    $('.Content').each(function(i, e){
+                         Schedules.push(subjects($(this), $(this)['0'].attribs.title));
+                    });
+                    resolve(Schedules);
                } catch (error) {
                     reject('server error');
                }
