@@ -61,15 +61,13 @@ class APIHuflit{
                     reject('server error');
                }
           })
-          function subjects(data, room, day){
+          function subjects(data, day){
                return {
                     Thu: day,
-                    Phong: room,
-                    MonHoc: data[1].split(':')[1].split(' (')[0].trim(),
-                    MaLopHocPhan: data[2].split(':')[1],
-                    LopHoc: data[3].split(':')[1].trim(),
-                    TietHoc: data[4].split(':')[1] + ' - ' + data[5],
-                    GiaoVien: data[6].split(':')[1].trim(),
+                    Phong: data.children(':nth-child(1)').text(),
+                    MonHoc: data.children(':nth-child(3)').text().split(' (')[0],
+                    TietHoc: data.children(':nth-child(9)').text().split(': ')[1],
+                    GiaoVien: data.children(':nth-child(11)').text().split(': ')[1],
                }
           }
      }

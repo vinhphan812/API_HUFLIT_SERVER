@@ -50,7 +50,6 @@ app.post('/Schedules', cors(), async (req, res, next) => {
           API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn');
           var data = await API.getSchedules('HK01');
           res.send(data);
-
      }catch(error){
           res.send(error);
      }
