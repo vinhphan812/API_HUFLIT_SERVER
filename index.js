@@ -69,4 +69,14 @@ app.get('/openServer', cors(), function(req, res){
      res.send(true);
 })
 
+app.post('/fee', cors(), async function(req, res){
+     try {
+          const API = new huflit();
+          API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn');
+          res.send(await API.getFee());
+     } catch (error) {
+          res.send(error);
+     }
+})
+
 app.listen(process.env.PORT || port, () => console.log("Server is running..."));

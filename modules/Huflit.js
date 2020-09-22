@@ -37,7 +37,7 @@ class APIHuflit{
                          }
                     });
                     if($('a.stylecolor span').text().indexOf(user) >= 0)
-                         resolve({isDone: true, cookie: this.jar._jar.store.idx['portal.huflit.edu.vn']['/']['ASP.NET_SessionId'].toString(), name: $('a.stylecolor span').text(), isTuition: await this.active()});
+                         resolve({isDone: true, cookie: this.jar._jar.store.idx['portal.huflit.edu.vn']['/']['ASP.NET_SessionId'].toString(), name: $('a.stylecolor span').text(), isFee: await this.active()});
                     reject({isDone: false, msg:'forgot user or pass'});
                }
                catch(err){
@@ -91,7 +91,7 @@ class APIHuflit{
                     var $ = await this.requestServer({
                          URI: '/Home',
                     });
-                    return $('a.stylecolor span').text() ? resolve({isDone: true, name: $('a.stylecolor span').text(), isTuition: await this.active()}) : reject({isDone: false, msg: "GetCookie"});
+                    return $('a.stylecolor span').text() ? resolve({isDone: true, name: $('a.stylecolor span').text(), isFee: await this.active()}) : reject({isDone: false, msg: "GetCookie"});
                     
                } catch (error) {
                     reject('server error');
@@ -105,23 +105,22 @@ class APIHuflit{
                          URI: 'Home/HienThiPhiHocPhan'
                     });   
                     console.log('success')
-                    resolve(isTuition($('thead:nth-child(1) tr')));
+                    resolve(isFee($('thead:nth-child(1) tr')));
                } catch (error) {
                     reject('server error');
                }
           })
-          function isTuition(data){
+          function isFee(data){
                return data.children(':nth-child(6)').text() == 0 ? true : false;
           }
      }
-     getTuition(){
+     getFee(){
           return new Promise( async (resolve, reject) => {
                try {
                     var Tuition = [];
                     var $ = await this.requestServer({
                          URI: 'Home/HienThiPhiHocPhan'
                     });                
-                    Tuition.push(totalTuition($('thead:nth-child(1) tr')));
                     $('tbody tr').each(function(i, e){
                          if($(this).children().length == 10)
                               Tuition.push(toData($(this)));
@@ -143,15 +142,6 @@ class APIHuflit{
                     ngayDong: data.children(':nth-child(8)').text(),
                     soPhieuThu: data.children(':nth-child(9)').text()
                }
-          }
-          function totalTuition(data){
-               return {
-                    tongTien: data.children(':nth-child(2)').text(),
-                    daDong: data.children(':nth-child(3)').text(),
-                    canTru: data.children(':nth-child(4)').text(),
-                    mienGiam: data.children(':nth-child(5)').text(),
-                    conNo: data.children(':nth-child(6)').text()
-               };
           }
      }
 }
