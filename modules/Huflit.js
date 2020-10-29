@@ -37,7 +37,7 @@ class APIHuflit {
                          }
                     });
                     if ($('a.stylecolor span').text().indexOf(user) >= 0)
-                         resolve({ isDone: true, cookie: this.jar._jar.store.idx['portal.huflit.edu.vn']['/']['ASP.NET_SessionId'].toString(), name: $('a.stylecolor span').text(), isFee: await this.active() });
+                         resolve({ isDone: true, cookie: this.jar._jar.store.idx['portal.huflit.edu.vn']['/']['ASP.NET_SessionId'].toString(), name: $('a.stylecolor span').text() });
                     reject({ isDone: false, msg: 'Wrong user or pass' });
                } catch (err) {
                     console.log(err);
