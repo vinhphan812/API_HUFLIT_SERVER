@@ -1,11 +1,13 @@
-var bodyParser = require('body-parser');
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const huflit = require('./modules/Huflit');
+const HUFLIT = require('./modules/Huflit'),
+     bodyParser = require('body-parser'),
+     express = require('express'),
+     path = require('path'),
+     cors = require('cors'),
+     app = express(),
+     port = 3000,
+     SERVER = 'https://portal.huflit.edu.vn/',
+     API = new HUFLIT();
 
-const app = express();
-const port = 3000;
 
 app.set('view engine', 'pug');
 app.set('views', 'static');
@@ -15,19 +17,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'static')));
 
-app.all('/', function(req, res, next) {
-     res.header("Access-Control-Allow-Origin", "*");
-     res.header("Access-Control-Allow-Headers", "X-Requested-With");
-     next()
-});
-
 app.get('/', cors(), function(req, res) {
      res.render('index');
 });
 
 app.post('/profile', cors(), async(req, res, next) => {
      try {
-          const API = new huflit();
           res.json(await API.login(req.body));
      } catch (error) {
           res.send(error);
@@ -36,8 +31,7 @@ app.post('/profile', cors(), async(req, res, next) => {
 
 app.post('/CheckCookie', cors(), async(req, res, next) => {
      try {
-          const API = new huflit();
-          API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn')
+          API.jar.setCookie(req.body.cookie, SERVER)
           res.send(await API.CheckCookie());
      } catch (error) {
           res.send(error);
@@ -46,8 +40,7 @@ app.post('/CheckCookie', cors(), async(req, res, next) => {
 
 app.post('/Schedules', cors(), async(req, res, next) => {
      try {
-          const API = new huflit();
-          API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn');
+          API.jar.setCookie(req.body.cookie, SERVER);
           var data = await API.getSchedules('HK01');
           res.send(data);
      } catch (error) {
@@ -57,8 +50,7 @@ app.post('/Schedules', cors(), async(req, res, next) => {
 
 app.post('/ChangePass', cors(), async(req, res, next) => {
      try {
-          const API = new huflit();
-          API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn');
+          API.jar.setCookie(req.body.cookie, SERVER);
           res.send(await API.ChangePass(req.body.oldPass, req.body.newPass));
      } catch (error) {
           res.send(error);
@@ -71,8 +63,7 @@ app.get('/openServer', cors(), function(req, res) {
 
 app.post('/fee', cors(), async function(req, res) {
      try {
-          const API = new huflit();
-          API.jar.setCookie(req.body.cookie, 'https://portal.huflit.edu.vn');
+          API.jar.setCookie(req.body.cookie, SERVER);
           res.send(await API.getFee());
      } catch (error) {
           res.send(error);
