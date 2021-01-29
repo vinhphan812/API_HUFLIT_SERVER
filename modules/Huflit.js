@@ -58,7 +58,7 @@ class APIHuflit {
 	getSchedules(semester) {
 		return new Promise(async (resolve, reject) => {
 			try {
-				var Schedules = [];
+				let Schedules = [];
 				var $ = await this.requestServer({
 					URI:
 						"/Home/DrawingSchedules?YearStudy=2020-2021&TermID=" +
@@ -70,12 +70,10 @@ class APIHuflit {
 				});
 				console.log($("body").html());
 				$(".Content").each(function (i, e) {
-					console.log(
-						subjects($(this), $(this)["0"].attribs.title)
-					);
-					Schedules.push(
-						subjects($(this), $(this)["0"].attribs.title)
-					);
+					Schedules = [
+						...Schedules,
+						subjects($(this), $(this)["0"].attribs.title),
+					];
 				});
 				resolve(Schedules);
 			} catch (error) {
@@ -95,10 +93,11 @@ class APIHuflit {
 					.children(":nth-child(9)")
 					.text()
 					.split(": ")[1],
-				GiaoVien: data
-					.children(":nth-child(11)")
-					.text()
-					.split(": ")[1],
+				GiaoVien:
+					data
+						.children(":nth-child(11)")
+						.text()
+						.split(": ")[1] || "Unknown",
 			};
 		}
 	}
@@ -107,13 +106,12 @@ class APIHuflit {
 			try {
 				var $ = await this.requestServer({
 					URI:
-						"/API/Student/auther?t=0.6284478731933405&pw=" +
-						oldPass +
-						"&pw1=" +
-						newPass +
-						"&pw2=" +
-						newPass,
+						"/API/Student/auther?t=0.6284478731933405" +
+						`&pw=${oldPass}` +
+						`&pw1=${newPass}` +
+						`&pw2=${newPass}`,
 				});
+
 				if ($.text() == "Mật khẩu cũ không chính xác")
 					reject($.text());
 				resolve($.text());
