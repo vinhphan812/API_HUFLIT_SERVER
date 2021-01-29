@@ -38,7 +38,7 @@ app.post("/CheckCookie", cors(), async (req, res, next) => {
 app.post("/Schedules", cors(), async (req, res, next) => {
 	try {
 		API.jar.setCookie(req.body.cookie, SERVER);
-		var data = await API.getSchedules("HK01");
+		var data = await API.getSchedules("HK02");
 		res.send(data);
 	} catch (error) {
 		res.send(error);

@@ -61,12 +61,18 @@ class APIHuflit {
 				var Schedules = [];
 				var $ = await this.requestServer({
 					URI:
-						"Home/DrawingSchedules?YearStudy=2020-2021&TermID=" +
+						"/Home/DrawingSchedules?YearStudy=2020-2021&TermID=" +
 						semester +
-						"&Week=41&t=0.5507445018467367",
+						"&Week=15&t=0.5507445018467367",
+					// URI:
+					// 	"/Home/DrawingStudentSchedule_Perior?YearStudy=2020-2021&TermID=HK02",
 					formData: "",
 				});
+				console.log($("body").html());
 				$(".Content").each(function (i, e) {
+					console.log(
+						subjects($(this), $(this)["0"].attribs.title)
+					);
 					Schedules.push(
 						subjects($(this), $(this)["0"].attribs.title)
 					);
