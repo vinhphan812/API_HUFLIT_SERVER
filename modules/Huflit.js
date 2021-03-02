@@ -19,6 +19,7 @@ class APIHuflit {
 		});
 	}
 	requestServer(data = { URI, formData: "" }) {
+		console.log(data.URI);
 		let form = {
 			uri: API_SERVER + data.URI,
 			jar: this.jar,
@@ -42,16 +43,18 @@ class APIHuflit {
 					$("a.stylecolor>span:nth-child(1)")
 						.text()
 						.indexOf(user) >= 0
-				)
+				) {
 					resolve({
-						isDone: true,
+						success: true,
 						cookie: this.jar.getCookieString(API_SERVER),
 						name: $("a.stylecolor span").text(),
 					});
-				reject({ isDone: false, msg: "Wrong user or pass" });
+				}
+
+				reject({ success: false, msg: "Wrong user or pass" });
 			} catch (err) {
 				console.log(err);
-				reject("server error");
+				reject({ success: false, msg: "server error" });
 			}
 		});
 	}
@@ -59,25 +62,29 @@ class APIHuflit {
 		return new Promise(async (resolve, reject) => {
 			try {
 				let Schedules = [];
+				console.log(this.jar);
 				var $ = await this.requestServer({
 					URI:
 						"/Home/DrawingSchedules?YearStudy=2020-2021&TermID=" +
 						semester +
 						"&Week=15&t=0.5507445018467367",
-					// URI:
-					// 	"/Home/DrawingStudentSchedule_Perior?YearStudy=2020-2021&TermID=HK02",
 					formData: "",
 				});
-				console.log($("body").html());
-				$(".Content").each(function (i, e) {
+				if ($("title").text().length != 0)
+					resolve({
+						success: false,
+						msg: "Please Login Again...",
+					});
+				$(".Content").each(function () {
 					Schedules = [
 						...Schedules,
 						subjects($(this), $(this)["0"].attribs.title),
 					];
 				});
-				resolve(Schedules);
+				resolve({ success: true, schedule: Schedules });
 			} catch (error) {
-				reject("server error");
+				console.log(error);
+				reject({ success: false, msg: "server error" });
 			}
 		});
 
@@ -116,24 +123,25 @@ class APIHuflit {
 					reject($.text());
 				resolve($.text());
 			} catch (error) {
-				reject("server error");
+				reject({ success: false, msg: "server error" });
 			}
 		});
 	}
 	CheckCookie() {
 		return new Promise(async (resolve, reject) => {
 			try {
+				console.log(this.jar);
 				var $ = await this.requestServer({
 					URI: "/Home",
 				});
 				return $("a.stylecolor span").text()
 					? resolve({
-							isDone: true,
+							success: true,
 							name: $("a.stylecolor span").text(),
 					  })
-					: reject({ isDone: false, msg: "GetCookie" });
+					: reject({ success: false, msg: "GetCookie" });
 			} catch (error) {
-				reject("server error");
+				reject({ success: false, msg: "server error" });
 			}
 		});
 	}

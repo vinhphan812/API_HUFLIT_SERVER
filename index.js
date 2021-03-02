@@ -2,11 +2,11 @@ const HUFLIT = require("./modules/Huflit"),
 	bodyParser = require("body-parser"),
 	express = require("express"),
 	path = require("path"),
-	cors = require("cors"),
-	app = express(),
+	cors = require("cors");
+
+const app = express(),
 	port = 3000,
-	SERVER = "https://portal.huflit.edu.vn/",
-	API = new HUFLIT();
+	SERVER = "https://portal.huflit.edu.vn/";
 
 app.set("view engine", "pug");
 app.set("views", "static");
@@ -20,7 +20,9 @@ app.get("/", cors(), function (req, res) {
 	res.render("index");
 });
 
-app.post("/profile", cors(), async (req, res, next) => {
+app.post("/login", cors(), async (req, res, next) => {
+	const API = new HUFLIT();
+	console.log(req.body);
 	API.login(req.body)
 		.then((result) => res.json(result))
 		.catch((error) => res.send(error));
@@ -28,8 +30,13 @@ app.post("/profile", cors(), async (req, res, next) => {
 
 app.post("/CheckCookie", cors(), async (req, res, next) => {
 	try {
-		API.jar.setCookie(req.body.cookie, SERVER);
-		res.send(await API.CheckCookie());
+		const API = new HUFLIT();
+		var response = { success: false, msg: "cookie null" };
+		if (req.body.cookie) {
+			API.jar.setCookie(req.body.cookie, SERVER);
+			response = await API.CheckCookie();
+		}
+		res.send(response);
 	} catch (error) {
 		res.send(error);
 	}
@@ -37,9 +44,9 @@ app.post("/CheckCookie", cors(), async (req, res, next) => {
 
 app.post("/Schedules", cors(), async (req, res, next) => {
 	try {
+		const API = new HUFLIT();
 		API.jar.setCookie(req.body.cookie, SERVER);
-		var data = await API.getSchedules("HK02");
-		res.send(data);
+		res.send(await API.getSchedules("HK02"));
 	} catch (error) {
 		res.send(error);
 	}
@@ -47,21 +54,9 @@ app.post("/Schedules", cors(), async (req, res, next) => {
 
 app.post("/ChangePass", cors(), async (req, res, next) => {
 	try {
+		const API = new HUFLIT();
 		API.jar.setCookie(req.body.cookie, SERVER);
 		res.send(await API.ChangePass(req.body.oldPass, req.body.newPass));
-	} catch (error) {
-		res.send(error);
-	}
-});
-
-app.get("/openServer", cors(), function (req, res) {
-	res.send(true);
-});
-
-app.post("/fee", cors(), async function (req, res) {
-	try {
-		API.jar.setCookie(req.body.cookie, SERVER);
-		res.send(await API.getFee());
 	} catch (error) {
 		res.send(error);
 	}
