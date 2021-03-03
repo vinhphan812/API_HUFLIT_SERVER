@@ -7,14 +7,13 @@ API_Huflit_Server is a API page portal.huflit.edu.vn. It uses npm such as: expre
 # 2. Installation
 
 ```base
-git clone https://github.com/vinhphan812/API_HUFLIT_SERVER.git
+     git clone https://github.com/vinhphan812/API_HUFLIT_SERVER.git
 
-npm install --save
+     npm install --save
 
+     npm run test
 
-npm run test
-
-npm run build
+     npm run build
 ```
 
 # Start Server: node index.js
