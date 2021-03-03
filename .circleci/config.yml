@@ -5,3 +5,9 @@ jobs:
           docker:
                steps:
                     - run: npm run start
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
