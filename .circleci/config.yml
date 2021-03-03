@@ -1,4 +1,5 @@
 jobs:
      build:
-          steps:
-               - run: npm run start
+          docker:
+               steps:
+                    - run: npm run start
