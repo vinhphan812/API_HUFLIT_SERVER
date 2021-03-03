@@ -3,6 +3,14 @@ var cheerio = require("cheerio");
 
 const API_SERVER = "https://portal.huflit.edu.vn";
 
+function makeURL(uri, params = {}) {
+	var paramStr = [];
+	for (var key in params) {
+		paramStr.push(`${key}=${params[key]}`);
+	}
+	return `${uri}?${paramStr.join("&")}`;
+}
+
 class APIHuflit {
 	constructor() {
 		this.jar = request.jar();
@@ -33,21 +41,18 @@ class APIHuflit {
 		return new Promise(async (resolve, reject) => {
 			try {
 				const $ = await this.requestServer({
-					URI: "/Login",
-					formData: {
-						txtTaiKhoan: user,
-						txtMatKhau: pass,
-					},
-				});
-				if (
-					$("a.stylecolor>span:nth-child(1)")
-						.text()
-						.indexOf(user) >= 0
-				) {
+						URI: "/Login",
+						formData: {
+							txtTaiKhoan: user,
+							txtMatKhau: pass,
+						},
+					}),
+					checkUser = $("a.stylecolor span").text();
+				if (checkUser.indexOf(user) >= 0) {
 					resolve({
 						success: true,
 						cookie: this.jar.getCookieString(API_SERVER),
-						name: $("a.stylecolor span").text(),
+						name: checkUser,
 					});
 				}
 
@@ -61,66 +66,61 @@ class APIHuflit {
 	getSchedules(semester) {
 		return new Promise(async (resolve, reject) => {
 			try {
-				let Schedules = [];
-				console.log(this.jar);
-				var $ = await this.requestServer({
-					URI:
-						"/Home/DrawingSchedules?YearStudy=2020-2021&TermID=" +
-						semester +
-						"&Week=15&t=0.5507445018467367",
-					formData: "",
-				});
-				if ($("title").text().length != 0)
-					resolve({
+				let Schedules = [],
+					res = {
 						success: false,
 						msg: "Please Login Again...",
-					});
-				$(".Content").each(function () {
-					Schedules = [
-						...Schedules,
-						subjects($(this), $(this)["0"].attribs.title),
-					];
+					};
+				const $ = await this.requestServer({
+					URI: makeURL("/Home/DrawingSchedules", {
+						YearStudy: "2020-2021",
+						TermID: semester,
+						Week: 15,
+					}),
+					formData: "",
 				});
-				resolve({ success: true, schedule: Schedules });
+
+				if (!$("title").text()) {
+					$(".Content").each(function () {
+						Schedules = [...Schedules, subjects($(this))];
+					});
+					res = { success: true, schedule: Schedules };
+				}
+				resolve(res);
 			} catch (error) {
 				console.log(error);
 				reject({ success: false, msg: "server error" });
 			}
 		});
-
-		function subjects(data, day) {
+		function subjects(data) {
 			return {
-				Thu: day,
-				Phong: data.children(":nth-child(1)").text(),
-				MonHoc: data
-					.children(":nth-child(3)")
-					.text()
-					.split(" (")[0],
-				TietHoc: data
-					.children(":nth-child(9)")
-					.text()
-					.split(": ")[1],
-				GiaoVien:
-					data
-						.children(":nth-child(11)")
-						.text()
-						.split(": ")[1] || "Unknown",
+				Thu: data.attr("title"),
+				Phong: getChild(data, 1).text(),
+				MonHoc: splitText(getChild(data, 3), " (", 0),
+				TietHoc: splitText(getChild(data, 9), ": ", 1),
+				GiaoVien: splitText(getChild(data, 11), ": ", 1),
 			};
+		}
+		function getChild(data, i) {
+			return data.children(`:nth-child(${i})`);
+		}
+		function splitText(query, splitChar, selectIndex) {
+			return query.text().split(splitChar)[selectIndex] || "Unknown";
 		}
 	}
 	ChangePass(oldPass, newPass) {
 		return new Promise(async (resolve, reject) => {
 			try {
 				var $ = await this.requestServer({
-					URI:
-						"/API/Student/auther?t=0.6284478731933405" +
-						`&pw=${oldPass}` +
-						`&pw1=${newPass}` +
-						`&pw2=${newPass}`,
+					URI: makeURL("/API/Student/auther", {
+						pw: oldPass,
+						pw1: newPass,
+						pw2: newPass,
+					}),
 				});
 
-				if ($.text() == "Mật khẩu cũ không chính xác")
-					reject($.text());
+				// if ($.text() == "Mật khẩu cũ không chính xác")
+				// 	reject($.text());
 				resolve($.text());
 			} catch (error) {
 				reject({ success: false, msg: "server error" });
@@ -130,16 +130,16 @@ class APIHuflit {
 	CheckCookie() {
 		return new Promise(async (resolve, reject) => {
 			try {
-				console.log(this.jar);
 				var $ = await this.requestServer({
-					URI: "/Home",
-				});
-				return $("a.stylecolor span").text()
-					? resolve({
-							success: true,
-							name: $("a.stylecolor span").text(),
-					  })
-					: reject({ success: false, msg: "GetCookie" });
+						URI: "/Home",
+					}),
+					res = { success: false, msg: "GetCookie" };
+				if ($("a.stylecolor span").text())
+					res = {
+						success: true,
+						name: $("a.stylecolor span").text(),
+					};
+				resolve(res);
 			} catch (error) {
 				reject({ success: false, msg: "server error" });
 			}
