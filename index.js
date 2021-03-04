@@ -62,4 +62,24 @@ app.post("/ChangePass", cors(), async (req, res, next) => {
 	}
 });
 
+app.post("/getMark", cors(), async (req, res, next) => {
+	try {
+		const term = req.body.term || 0,
+			year = req.body.year || 0,
+			studyProgram = req.body.studyProgram;
+
+		if (studyProgram.length < 4)
+			return res.send({
+				success: false,
+				message: "Not StudyProgram...!",
+			});
+
+		const API = new HUFLIT();
+		API.jar.setCookie(req.body.cookie, SERVER);
+		res.send(await API.getMark(studyProgram, year, term));
+	} catch (error) {
+		res.send(error);
+	}
+});
+
 app.listen(process.env.PORT || port, () => console.log("Server is running..."));

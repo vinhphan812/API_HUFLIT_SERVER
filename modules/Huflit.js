@@ -146,6 +146,49 @@ class APIHuflit {
 			}
 		});
 	}
+	getMark(studyProgram, year, term) {
+		return new Promise(async (resolve, reject) => {
+			try {
+				const $ = await this.requestServer({
+					URI: makeURL("/Home/ShowMark", {
+						studyProgram: studyProgram,
+						yearStudy: year,
+						termID: term,
+					}),
+				});
+				var elements = $("table tbody").children(),
+					result = [];
+				elements = elements.filter(function () {
+					if (
+						!$(this).attr("style") &&
+						$(this).children().length != 1
+					)
+						return $(this);
+				});
+				elements.each(function () {
+					result.push(Subject($(this)));
+				});
+				resolve(result);
+			} catch (error) {
+				reject(error);
+			}
+			function Subject(data) {
+				var subject = {
+					SubjectTitle: getChild(data, 3),
+					Credits: getChild(data, 4),
+				};
+				if (getChild(data, 5) && getChild(data, 6)) {
+					subject.Score = getChild(data, 5);
+					subject.ScoreChar = getChild(data, 6);
+				}
+				return subject;
+			}
+			function getChild(data, index) {
+				return data.children(`:nth-child(${index})`).text().trim();
+			}
+			function getDetailMark() {}
+		});
+	}
 }
 
 module.exports = APIHuflit;
