@@ -27,7 +27,7 @@ class APIHuflit {
 		});
 	}
 	requestServer(data = { URI, formData: "" }) {
-		console.log(data.URI);
+		console.log(API_SERVER + data.URI);
 		let form = {
 			uri: API_SERVER + data.URI,
 			jar: this.jar,
@@ -48,6 +48,7 @@ class APIHuflit {
 						},
 					}),
 					checkUser = $("a.stylecolor span").text();
+				console.log($("body").html());
 				if (checkUser.indexOf(user) >= 0) {
 					resolve({
 						success: true,
