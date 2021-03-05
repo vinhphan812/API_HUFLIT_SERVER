@@ -1,7 +1,7 @@
 {
 	"name": "api_server",
 	"version": "1.0.0",
-	"description": "",
+	"description": "API HUFLIT. . .",
 	"main": "index.js",
 	"scripts": {
 		"build": "node index.js",
@@ -13,7 +13,7 @@
 		"huflit"
 	],
 	"author": "Vinh Phan",
-	"license": "ISC",
+	"license": "MIT",
 	"dependencies": {
 		"body-parser": "^1.19.0",
 		"cheerio": "^1.0.0-rc.3",
@@ -24,7 +24,7 @@
 		"request-promise": "^4.2.6"
 	},
 	"engines": {
-		"node": "10.x"
+		"node": "14.x"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.6"
