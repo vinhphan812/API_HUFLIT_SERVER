@@ -22,7 +22,6 @@ app.get("/", cors(), function (req, res) {
 
 app.post("/login", cors(), async (req, res, next) => {
 	const API = new HUFLIT();
-	console.log(req.body);
 	API.login(req.body)
 		.then((result) => res.json(result))
 		.catch((error) => res.send(error));

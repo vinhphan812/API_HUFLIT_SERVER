@@ -48,7 +48,6 @@ class APIHuflit {
 						},
 					}),
 					checkUser = $("a.stylecolor span").text();
-				console.log($("body").html());
 				if (checkUser.indexOf(user) >= 0) {
 					resolve({
 						success: true,
