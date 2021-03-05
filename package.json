@@ -9,8 +9,8 @@
 		"test": "nodemon index.js"
 	},
 	"keywords": [
-		"example",
-		"heroku"
+		"api_huflit",
+		"huflit"
 	],
 	"author": "Vinh Phan",
 	"license": "ISC",
