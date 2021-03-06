@@ -133,11 +133,12 @@ class APIHuflit {
 				var $ = await this.requestServer({
 						URI: "/Home",
 					}),
-					res = { success: false, msg: "GetCookie" };
-				if ($("a.stylecolor span").text())
+					res = { success: false, msg: "GetCookie" },
+					user = $("a.stylecolor span").text();
+				if (user)
 					res = {
 						success: true,
-						name: $("a.stylecolor span").text(),
+						name: user,
 					};
 				resolve(res);
 			} catch (error) {
@@ -155,14 +156,12 @@ class APIHuflit {
 						termID: term,
 					}),
 				});
+
 				var elements = $("table tbody").children(),
 					result = [];
+
 				elements = elements.filter(function () {
-					if (
-						!$(this).attr("style") &&
-						$(this).children().length != 1
-					)
-						return $(this);
+					if (isSubject($(this))) return $(this);
 				});
 				elements.each(function () {
 					result.push(Subject($(this)));
@@ -171,6 +170,10 @@ class APIHuflit {
 			} catch (error) {
 				reject(error);
 			}
+			function isSubject(el) {
+				return !el.attr("style") && el.children().length > 1;
+			}
+
 			function Subject(data) {
 				var subject = {
 					SubjectTitle: getChild(data, 3),
