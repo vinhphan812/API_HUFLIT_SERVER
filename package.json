@@ -24,7 +24,7 @@
 		"request-promise": "^4.2.6"
 	},
 	"engines": {
-		"node": "14.x"
+		"node": "15.x"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.6"
