@@ -61,4 +61,18 @@ module.exports = {
 			res.send(error);
 		}
 	},
+	middlewareCheckCookie: async (req, res, next) => {
+		const API = new HUFLIT();
+		try {
+			if (!req.body.cookie)
+				return res.send({ msg: "cookie null", success: false });
+			API.jar.setCookie(req.body.cookie, SERVER);
+			response = await API.CheckCookie();
+			if (!response.success) return res.send(response);
+			next();
+		} catch (error) {
+			console.log(error);
+			res.send(error);
+		}
+	},
 };

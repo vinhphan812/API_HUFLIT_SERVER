@@ -119,9 +119,9 @@ class APIHuflit {
 					}),
 				});
 
-				// if ($.text() == "Mật khẩu cũ không chính xác")
-				// 	reject($.text());
-				resolve($.text());
+				if ($.text() == "Mật khẩu cũ không chính xác")
+					resolve({ msg: $.text(), success: false });
+				resolve({ msg: $.text(), success: true });
 			} catch (error) {
 				reject({ success: false, msg: "server error" });
 			}
@@ -133,7 +133,7 @@ class APIHuflit {
 				var $ = await this.requestServer({
 						URI: "/Home",
 					}),
-					res = { success: false, msg: "GetCookie" },
+					res = { success: false, msg: "Get Cookie" },
 					user = $("a.stylecolor span").text();
 				if (user)
 					res = {
@@ -166,9 +166,9 @@ class APIHuflit {
 				elements.each(function () {
 					result.push(Subject($(this)));
 				});
-				resolve(result);
+				resolve({ success: true, data: result });
 			} catch (error) {
-				reject(error);
+				reject({ success: false, msg: "server error" });
 			}
 			function isSubject(el) {
 				return !el.attr("style") && el.children().length > 1;
