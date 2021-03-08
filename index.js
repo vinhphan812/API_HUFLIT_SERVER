@@ -7,6 +7,8 @@ const controlAPI = require("./Controller/api.controller");
 const app = express(),
 	port = 3000;
 
+const listAPI = require("./static/listAPI");
+
 app.set("view engine", "pug");
 app.set("views", "static");
 
@@ -16,17 +18,29 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "static")));
 
 app.get("/", cors(), function (req, res) {
-	res.render("index");
+	res.render("HOME", { list: listAPI });
 });
 
-app.post("/login", controlAPI.loginAPI);
+app.post("/Login", controlAPI.loginAPI);
 
-app.post("/CheckCookie", controlAPI.checkCookie);
+app.post(
+	"/CheckCookie",
+	controlAPI.middlewareCheckCookie,
+	controlAPI.checkCookie
+);
 
-app.post("/Schedules", controlAPI.getSchedule);
+app.post(
+	"/GetSchedule",
+	controlAPI.middlewareCheckCookie,
+	controlAPI.getSchedule
+);
 
-app.post("/ChangePass", controlAPI.changePass);
+app.post(
+	"/ChangePass",
+	controlAPI.middlewareCheckCookie,
+	controlAPI.changePass
+);
 
-app.post("/getMark", controlAPI.getMark);
+app.post("/GetMark", controlAPI.middlewareCheckCookie, controlAPI.getMark);
 
 app.listen(process.env.PORT || port, () => console.log("Server is running..."));

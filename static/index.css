@@ -1,212 +1,22 @@
 :root {
 	font-family: "Open Sans", sans-serif;
 	font-weight: 500;
-	color: #eee;
-}
-
-body {
-	background-color: #444444;
-	margin: 0;
-}
-
-code {
-	color: #666;
-}
-
-.m50 a {
-	text-decoration: none;
-	font-weight: 400;
-	color: #e29a5c;
-	transition: color 300ms;
-}
-
-.m50 a:hover {
-	color: #aa7547;
-}
-
-.path {
-	font-weight: bold;
-}
-
-.tab1 {
-	margin-left: 15px;
-}
-
-.tab1 p {
-	margin-left: 30px;
-}
-
-.alert {
-	color: #7d0303;
-}
-
-.content {
-	background-color: #f8f8f8;
-	border: 1px solid #999;
-	display: flex;
-	align-items: center;
-	width: 350px;
-	height: 40px;
-	overflow: hidden;
-	margin: 10px 0 10px 70px;
-	border-radius: 5px;
-	box-shadow: 0 0 5px 0 #333;
-	cursor: default;
-	transition: background-color 300ms;
-}
-
-.content:hover {
-	background-color: #ddd;
-}
-
-.content > .title {
-	color: #fff;
-	margin-right: 10px;
-	padding: 1rem;
-	background-color: #8888;
-	transition: background-color 300ms;
-}
-
-.content > .title:hover {
-	background-color: #888f;
-}
-
-code {
-	display: inline-block;
-}
-
-.data {
-	color: #ff8013;
-}
-
-.action {
-	color: #1000ff;
-}
-
-h1 {
-	color: #fff;
-}
-
-h1,
-h2,
-h3 {
-	margin-left: 30px;
-}
-
-.m50 {
-	margin-left: 50px;
+	font-size: 20px;
 }
 
 .main {
 	padding: 10px 0;
 	margin: auto;
+	padding: 1rem;
 	width: 55%;
 	height: auto;
-	background-color: #525252;
-}
-
-p {
-	margin: 0;
 }
 
 .post {
 	color: #e29a5c;
-	margin-right: 10px;
+	font-weight: 600;
 }
 
-.container {
-	display: flex;
-	align-items: center;
-}
-
-.lang {
-	margin-bottom: 30px;
-}
-
-.contact {
-	list-style-type: none;
-	padding: 0 0;
-	margin: 0 auto;
-	width: 55%;
-	height: 50px;
-	display: flex;
-	justify-content: space-around;
-	align-items: center;
-	background-color: #000;
-}
-
-.contact li {
-	padding: auto 0;
-	height: 100%;
-	flex-grow: 1;
-}
-
-.contact li a {
-	text-decoration: none;
-	font-weight: 500;
-	height: 100%;
-	color: #fff;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	transition: linear 200ms;
-}
-
-.contact li a span {
-	margin-right: 10px;
-	font-size: 36px;
-}
-
-.contact li a:hover {
-	color: #333;
-	background-color: #e9ebee;
-	transform: scale(1.01);
-}
-
-.svg-1 {
-	width: 200px;
-	height: 10px;
-	margin: 0 10px 0 40px;
-}
-
-.svg-2 {
-	width: 10px;
-	height: 10px;
-	margin: 0 10px 0 50px;
-}
-
-.url {
-	color: #999;
-	text-decoration: none;
-}
-
-@media (max-width: 980px) {
-	:root {
-		font-size: 28px;
-	}
-	.svg-1 {
-		width: 400px;
-		height: 20px;
-	}
-	.svg-2 {
-		width: 20px;
-		height: 20px;
-	}
-	.main,
-	.contact,
-	.container {
-		width: 100%;
-	}
-	.content {
-		width: 70%;
-	}
-	.contact {
-		height: 100px;
-	}
-	.container {
-		flex-direction: columns;
-	}
-	.contact li a span {
-		font-size: 72px;
-	}
+.btn:focus {
+	box-shadow: none !important;
 }

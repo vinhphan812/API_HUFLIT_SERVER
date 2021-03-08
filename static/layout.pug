@@ -1,0 +1,9 @@
+mixin tableRender(list)
+     table.table.ml-2
+          tr
+               th Key
+               th Value
+          each val, key in list
+               tr
+                    td= key
+                    td= val 
