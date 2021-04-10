@@ -1,7 +1,16 @@
 const express = require("express"),
-	cors = require("cors");
+	cors = require("cors"),
+	path = require("path");
 
-const ctrlAPI = require("./Controller/api.controller");
+const {
+	loginAPI,
+	checkCookie,
+	middlewareCheckCookie,
+	getSchedule,
+	changePass,
+	getMark,
+	surveyTeacher,
+} = require("./Controller/api.controller");
 
 const app = express(),
 	port = process.env.PORT || 3000;
@@ -14,18 +23,20 @@ app.set("views", "static");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("static"));
+app.use(express.static(path.join(__dirname + "static")));
 
 app.get("/", (req, res) => res.render("HOME", { list: listAPI }));
 
-app.post("/Login", ctrlAPI.loginAPI);
+app.post("/Login", loginAPI);
 
-app.post("/CheckCookie", ctrlAPI.checkCookie);
+app.post("/CheckCookie", checkCookie);
 
-app.post("/GetSchedule", ctrlAPI.middlewareCheckCookie, ctrlAPI.getSchedule);
+app.post("/GetSchedule", middlewareCheckCookie, getSchedule);
 
-app.post("/ChangePass", ctrlAPI.middlewareCheckCookie, ctrlAPI.changePass);
+app.post("/ChangePass", middlewareCheckCookie, changePass);
 
-app.post("/GetMark", ctrlAPI.middlewareCheckCookie, ctrlAPI.getMark);
+app.post("/GetMark", middlewareCheckCookie, getMark);
+
+app.post("/SurveyTeacher", middlewareCheckCookie, surveyTeacher);
 
 app.listen(port, () => console.log("Server is running..."));

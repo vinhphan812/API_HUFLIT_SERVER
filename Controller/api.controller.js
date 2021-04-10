@@ -26,19 +26,15 @@ module.exports = {
 	},
 	getSchedule: async (req, res) => {
 		try {
-			const API = new HUFLIT();
-			API.jar.setCookie(req.body.cookie, SERVER);
-			res.send(await API.getSchedules("HK02"));
+			res.send(await req.API.getSchedules("HK02"));
 		} catch (error) {
 			res.send(error);
 		}
 	},
 	changePass: async (req, res) => {
-		const API = new HUFLIT();
 		try {
-			API.jar.setCookie(req.body.cookie, SERVER);
 			res.send(
-				await API.ChangePass(req.body.oldPass, req.body.newPass)
+				await req.API.ChangePass(req.body.oldPass, req.body.newPass)
 			);
 		} catch (error) {
 			res.send(error);
@@ -47,27 +43,47 @@ module.exports = {
 	getMark: async (req, res) => {
 		const term = req.body.term || 0,
 			year = req.body.year || 0,
-			studyProgram = req.body.studyProgram;
+			studyProgram = req.body.studyProgram || "";
 		try {
-			if (!studyProgram)
-				return res.send({
-					success: false,
-					message: "Not StudyProgram...!",
-				});
-			const API = new HUFLIT();
-			API.jar.setCookie(req.body.cookie, SERVER);
-			res.send(await API.getMark(studyProgram, year, term));
+			res.send(await req.API.getMark(studyProgram, year, term));
 		} catch (error) {
 			res.send(error);
 		}
 	},
+	surveyTeacher: async (req, res) => {
+		const data = req.body;
+		var form = {
+			SID: data.SID || "",
+			PID: data.PID || "",
+			classId: data.ClassId,
+			auth: data.Auth || "",
+			YearStudy: data.YearStudy || "",
+			TermID: data.TermID || "",
+		};
+		console.log(
+			!form.SID &&
+				!form.PID &&
+				!form.auth &&
+				!form.YearStudy &&
+				!form.TermID
+		);
+		if (
+			!data.SID &&
+			!data.PID &&
+			!data.auth &&
+			!data.YearStudy &&
+			!data.TermID
+		)
+			return res.send({ success: false, dataFail: form });
+		res.send(await req.API.Survey(form, 3));
+	},
 	middlewareCheckCookie: async (req, res, next) => {
-		const API = new HUFLIT();
+		req.API = new HUFLIT();
 		try {
 			if (!req.body.cookie)
 				return res.send({ msg: "cookie null", success: false });
-			API.jar.setCookie(req.body.cookie, SERVER);
-			response = await API.CheckCookie();
+			req.API.jar.setCookie(req.body.cookie, SERVER);
+			response = await req.API.CheckCookie();
 			if (!response.success) return res.send(response);
 			next();
 		} catch (error) {
