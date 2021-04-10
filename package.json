@@ -7,7 +7,7 @@
 	"scripts": {
 		"start": "node index.js",
 		"test": "nodemon index.js",
-		"build": "npm run index.js",
+		"build": "nodeindex.js",
 		"predeploy": "npm run build",
 		"deploy": "gh-pages -d build"
 	},
