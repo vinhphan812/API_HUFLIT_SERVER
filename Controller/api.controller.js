@@ -48,6 +48,9 @@ module.exports = {
 			res.send(error);
 		}
 	},
+	getDetail: async (req, res) => {
+		res.send(await req.API.getDetailMark(req.body.codeDetail));
+	},
 	surveyTeacher: async (req, res) => {
 		const data = req.body;
 		var form = {
@@ -59,7 +62,7 @@ module.exports = {
 			TermID: data.TermID || "",
 		};
 
-		if (!checkData(data))
+		if (!checkData(form))
 			return res.send({ success: false, dataFail: form });
 		res.send(await req.API.Survey(form, 3));
 	},
@@ -80,5 +83,12 @@ module.exports = {
 };
 
 function checkData(data) {
-	return data.SID && data.PID && data.auth && data.YearStudy && data.TermID;
+	return (
+		data.SID &&
+		data.PID &&
+		data.auth &&
+		data.YearStudy &&
+		data.TermID &&
+		data.classId
+	);
 }

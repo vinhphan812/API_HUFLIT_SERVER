@@ -225,24 +225,19 @@ class APIHuflit {
 			}
 
 			function Subject(data) {
-				return new Promise(async (resolve, reject) => {
-					var detail = [[], []];
-					var el = data.find(":nth-child(8)>img");
-					if (el)
-						detail = await this.getDetailMark(
-							el.attr("onclick").split("'")[1]
-						);
-					resolve({
-						code: getChild(data, 2),
-						subject: getChild(data, 3),
-						credits: +getChild(data, 4),
-						score: +getChild(data, 5) || null,
-						scoreChar: getChild(data, 6) || null,
-						survey: surveyCode(data),
-						scoreDetailContent: detail[0],
-						scoreDetail: detail[1],
-					});
-				});
+				var el = data
+					.find(":nth-child(8)>img")
+					.attr("onclick")
+					.split("'")[1];
+				return {
+					code: getChild(data, 2),
+					subject: getChild(data, 3),
+					credits: +getChild(data, 4),
+					score: +getChild(data, 5) || null,
+					scoreChar: getChild(data, 6) || null,
+					survey: surveyCode(data),
+					codeDetail: el || "",
+				};
 			}
 
 			function surveyCode(data) {
@@ -271,7 +266,7 @@ class APIHuflit {
 				title.push($("td:nth-child(2)", this).text());
 				score.push(+$("td:nth-child(3)", this).text());
 			});
-			resolve([title, score]);
+			resolve({ sContent: title, sDetail: score });
 		});
 	}
 	Survey({ SID, PID, classId, auth, YearStudy, TermID }, type) {

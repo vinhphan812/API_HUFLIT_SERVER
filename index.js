@@ -9,6 +9,7 @@ const {
 	getSchedule,
 	changePass,
 	getMark,
+	getDetail,
 	surveyTeacher,
 } = require("./Controller/api.controller");
 
@@ -36,6 +37,7 @@ app.post("/GetSchedule", middlewareCheckCookie, getSchedule);
 app.post("/ChangePass", middlewareCheckCookie, changePass);
 
 app.post("/GetMark", middlewareCheckCookie, getMark);
+app.post("/GetDetail", middlewareCheckCookie, getDetail);
 
 app.post("/SurveyTeacher", middlewareCheckCookie, surveyTeacher);
 
