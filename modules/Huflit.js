@@ -4,7 +4,7 @@ const url = require("url"),
 var request = require("request-promise"),
 	cheerio = require("cheerio");
 
-function Link(extns = { h, p, q: {} }) {
+function Link(extns = { h: "", p, q: {} }) {
 	return url.format({
 		protocol: "https",
 		hostname: extns.h,
@@ -30,13 +30,13 @@ class APIHuflit {
 		});
 	}
 	requestServer(data = { URI, formData: "" }) {
+		console.log(Link(data.URI));
 		try {
 			data.URI = Link(data.URI);
-			console.log(typeof data.formData ? "post" : "get", data.URI);
 			let form = {
 				uri: data.URI,
 				jar: this.jar,
-				method: typeof data.formData ? "post" : "get",
+				method: typeof data.formData == "object" ? "post" : "get",
 				formData: data.formData,
 				transform: (body) => cheerio.load(body),
 			};
@@ -171,7 +171,7 @@ class APIHuflit {
 		});
 	}
 
-	getMark(studyProgram, year, term) {
+	getMark(studyProgram) {
 		return new Promise(async (resolve, reject) => {
 			const isSubject = (el) =>
 				!el.attr("style") && el.children().length > 1;
@@ -191,34 +191,32 @@ class APIHuflit {
 						p: "/Home/ShowMark",
 						q: {
 							studyProgram: studyProgram,
-							yearStudy: year || 0,
-							termID: term || 0,
+							yearStudy: 0,
+							termID: 0,
 						},
 					},
 				});
 
 				var elements = $("table tbody").children(),
 					result = [],
-					auth = "",
 					elements = elements.filter(function () {
 						if (isSubject($(this))) return $(this);
 					});
 
-				elements.each(function () {
-					var isDoing = true,
-						code = getChild($(this), 2);
+				for (var i = 0; i < elements.length; i++) {
+					var isDoing = false,
+						code = getChild($(elements[i]), 2);
 					if (result.length > 0)
 						isDoing = result.find(function (i) {
-							if (i.Code == code) return true;
+							if (i.code == code) return true;
 						});
-					if (!auth)
-						if (!isDoing || result.length == 0)
-							result.push(Subject($(this)));
-				});
-
+					if (!isDoing) {
+						result.push(await Subject($(elements[i])));
+					}
+				}
 				resolve({
 					success: true,
-					data: [...new Set(result)],
+					data: result,
 					sProgram: studyProgram,
 				});
 			} catch (error) {
@@ -227,20 +225,26 @@ class APIHuflit {
 			}
 
 			function Subject(data) {
-				return {
-					code: getChild(data, 2),
-					subject: getChild(data, 3),
-					credits: getChild(data, 4),
-					score: getChild(data, 5) || null,
-					scoreChar: getChild(data, 6) || null,
-					survey: surveyCode(data),
-				};
+				return new Promise(async (resolve, reject) => {
+					var detail = [[], []];
+					var el = data.find(":nth-child(8)>img");
+					if (el)
+						detail = await this.getDetailMark(
+							el.attr("onclick").split("'")[1]
+						);
+					resolve({
+						code: getChild(data, 2),
+						subject: getChild(data, 3),
+						credits: +getChild(data, 4),
+						score: +getChild(data, 5) || null,
+						scoreChar: getChild(data, 6) || null,
+						survey: surveyCode(data),
+						scoreDetailContent: detail[0],
+						scoreDetail: detail[1],
+					});
+				});
 			}
-			function getAuth(data) {
-				return query.parse(
-					url.parse(data.find(":nth-child(5)>a").attr("href"))
-				).auth;
-			}
+
 			function surveyCode(data) {
 				var survey =
 					data.find(":nth-child(5)>a").attr("href") || null;
@@ -250,7 +254,24 @@ class APIHuflit {
 			function getChild(data, index) {
 				return data.children(`:nth-child(${index})`).text().trim();
 			}
-			function getDetailMark() {}
+		});
+	}
+	getDetailMark(path) {
+		return new Promise(async (resolve, reject) => {
+			let title = [],
+				score = [];
+			const $ = await this.requestServer({
+				URI: {
+					h: this.host,
+					p: "Home/ShowMarkDetail/" + path,
+				},
+			});
+			var el = $("tbody>tr:not(:first-child)");
+			el.each(function (e) {
+				title.push($("td:nth-child(2)", this).text());
+				score.push(+$("td:nth-child(3)", this).text());
+			});
+			resolve([title, score]);
 		});
 	}
 	Survey({ SID, PID, classId, auth, YearStudy, TermID }, type) {

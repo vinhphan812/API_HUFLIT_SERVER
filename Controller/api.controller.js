@@ -41,11 +41,9 @@ module.exports = {
 		}
 	},
 	getMark: async (req, res) => {
-		const term = req.body.term || 0,
-			year = req.body.year || 0,
-			studyProgram = req.body.studyProgram || "";
+		const studyProgram = req.body.studyProgram || "";
 		try {
-			res.send(await req.API.getMark(studyProgram, year, term));
+			res.send(await req.API.getMark(studyProgram));
 		} catch (error) {
 			res.send(error);
 		}
@@ -60,20 +58,8 @@ module.exports = {
 			YearStudy: data.YearStudy || "",
 			TermID: data.TermID || "",
 		};
-		console.log(
-			!form.SID &&
-				!form.PID &&
-				!form.auth &&
-				!form.YearStudy &&
-				!form.TermID
-		);
-		if (
-			!data.SID &&
-			!data.PID &&
-			!data.auth &&
-			!data.YearStudy &&
-			!data.TermID
-		)
+
+		if (!checkData(data))
 			return res.send({ success: false, dataFail: form });
 		res.send(await req.API.Survey(form, 3));
 	},
@@ -92,3 +78,7 @@ module.exports = {
 		}
 	},
 };
+
+function checkData(data) {
+	return data.SID && data.PID && data.auth && data.YearStudy && data.TermID;
+}

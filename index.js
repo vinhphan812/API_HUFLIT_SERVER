@@ -18,12 +18,12 @@ const app = express(),
 const listAPI = require("./static/listAPI");
 
 app.set("view engine", "pug");
-app.set("views", "static");
+app.set("views", "views");
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname + "static")));
+app.use(express.static(path.join(__dirname, "static")));
 
 app.get("/", (req, res) => res.render("HOME", { list: listAPI }));
 
