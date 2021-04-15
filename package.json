@@ -1,15 +1,11 @@
 {
 	"name": "api_server",
-	"homepage": "https://vinhphan812.github.io/api",
 	"version": "1.0.0",
 	"description": "API HUFLIT. . .",
 	"main": "index.js",
 	"scripts": {
 		"start": "node index.js",
-		"test": "nodemon index.js",
-		"build": "nodeindex.js",
-		"predeploy": "npm run build",
-		"deploy": "gh-pages -d build"
+		"test": "nodemon index.js"
 	},
 	"keywords": [
 		"api_huflit",
