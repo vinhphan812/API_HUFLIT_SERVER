@@ -206,12 +206,16 @@ class APIHuflit {
 				for (var i = 0; i < elements.length; i++) {
 					var isDoing = false,
 						code = getChild($(elements[i]), 2);
-					if (result.length > 0)
-						isDoing = result.find(function (i) {
-							if (i.code == code) return true;
-						});
-					if (!isDoing) {
+					if (!getChild($(elements[i]), 6)) {
 						result.push(await Subject($(elements[i])));
+					} else {
+						if (result.length > 0)
+							isDoing = result.find(function (i) {
+								if (i.code == code) return true;
+							});
+						if (!isDoing) {
+							result.push(await Subject($(elements[i])));
+						}
 					}
 				}
 				resolve({
@@ -225,10 +229,12 @@ class APIHuflit {
 			}
 
 			function Subject(data) {
-				var el = data
-					.find(":nth-child(8)>img")
-					.attr("onclick")
-					.split("'")[1];
+				var el = data.find(":nth-child(8)>img").attr("onclick")
+					? data
+							.find(":nth-child(8)>img")
+							.attr("onclick")
+							.split("'")[1]
+					: "";
 				return {
 					code: getChild(data, 2),
 					subject: getChild(data, 3),
